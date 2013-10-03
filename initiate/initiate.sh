@@ -5,6 +5,7 @@ tar zxf ssh.tgz
 
 mkdir code
 cd code
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 git clone git@github.com:Niichan/dotfiles
 cd dotfiles
 
@@ -30,4 +31,5 @@ setlink .vimrc
 setlink .cheat
 setlink .gitconfig
 setlink .rtorrent.rc
+setlink .Xmodmap
 
