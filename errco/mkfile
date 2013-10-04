@@ -2,3 +2,12 @@ CC=gcc
 
 errco: errco.c
     $CC -o errco errco.c
+
+clean:V:
+    rm errco
+
+install:QV:
+    if [ -d ~/bin ] ; then
+        cp errco ~/bin
+    fi
+    echo "Errco installed"
