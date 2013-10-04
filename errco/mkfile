@@ -1,0 +1,4 @@
+CC=gcc
+
+errco: errco.c
+    $CC -o errco errco.c
