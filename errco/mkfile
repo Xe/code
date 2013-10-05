@@ -9,5 +9,10 @@ clean:V:
 install:QV:
     if [ -d ~/bin ] ; then
         cp errco ~/bin
+    else
+    	mkdir ~/bin 
+    	cp errco ~/bin
     fi
     echo "Errco installed"
+
+
