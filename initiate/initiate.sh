@@ -6,7 +6,6 @@ tar zxf ssh.tgz
 # Setup packages
 sudo apk add bash zsh ca-certificates alpine-sdk flex bison
 sudo apt-get install zsh build-essential flex bison
-sudo pacman -Syu zsh git flex bison gcc make autoconf
 
 # Clone dotfiles and dependencies
 mkdir code
