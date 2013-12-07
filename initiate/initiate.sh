@@ -19,7 +19,7 @@ wget --no-check-certificate https://github.com/robbyrussell/oh-my-zsh/raw/master
 
 function setlink
 {
-        ln -s `pwd`/$1 $HOME/$1
+        ln -s $HOME/code/dotfiles/$1 $HOME/$1
 }
 
 rm ~/.zshrc
