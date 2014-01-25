@@ -1,0 +1,12 @@
+StartRoom in RD's house: 
+    has takeable item saddle 
+    has untakeable item picture
+    will not let you leave without the saddle
+    links to ponyville (south)
+
+Ponyville:
+    has untakeable item pinkie
+        has special command talk to
+        has special command reply
+    links to sugarcube corner (west)
+    links to home (north)

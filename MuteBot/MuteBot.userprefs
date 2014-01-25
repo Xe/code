@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" ctype="Workspace" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="MuteBot/Main.cs" ctype="Workbench">
+    <Files>
+      <File FileName="MuteBot/Main.cs" Line="70" Column="36" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches ctype="PinnedWatchStore" />
+  <MonoDevelop.Ide.BookmarkService.Bookmarks>
+    <BookmarkCollection />
+  </MonoDevelop.Ide.BookmarkService.Bookmarks>
+</Properties>

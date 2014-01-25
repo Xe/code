@@ -1,0 +1,13 @@
+{
+    "server": {
+        "host": "10.1.10.14",
+        "port": 6667
+    },
+
+    "me": {
+        "nick": "Reaper",
+        "channels": ["#test"],
+        "caps": ["away-notify", "extended-join", "account-notify"],
+        "services_pass": "loldongs"
+    }
+}
