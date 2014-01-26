@@ -59,7 +59,6 @@ sock = socket.tcp()
 sock:connect(HOST, PORT)
 send_line("NICK " .. NICK)
 send_line("USER %s %s %s :%s", USER, USER, USER, NICK)
-send_line("JOIN " .. CHANNEL)
 
 -- Main loop
 while true do
