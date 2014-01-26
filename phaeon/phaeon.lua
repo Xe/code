@@ -30,13 +30,9 @@ function string.split(str, pat)
 	return t
 end
 
-function printf(s, ...)
-	io.write(s:format(...))
-end
-
 function send_line(line, ...)
 	line = line:format(...)
-	printf("<<< %s\n", line)
+	print("<<< " .. line .. "\n")
 	sock:send(line .. "\r\n")
 end
 
@@ -64,7 +60,7 @@ send_line("USER %s %s %s :%s", USER, USER, USER, NICK)
 while true do
 	line, err = get_line()
 	if line then
-		printf(">>> %s\n", line)
+		print(">>> " .. line .. "\n")
 		prefix, command, args = tokenize_line(line)
 
 		if command == "PING" then
