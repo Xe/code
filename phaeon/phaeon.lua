@@ -32,7 +32,7 @@ end
 
 function send_line(line, ...)
 	line = line:format(...)
-	print("<<< " .. line .. "\n")
+	print("<<< " .. line)
 	sock:send(line .. "\r\n")
 end
 
@@ -60,7 +60,7 @@ send_line("USER %s %s %s :%s", USER, USER, USER, NICK)
 while true do
 	line, err = get_line()
 	if line then
-		print(">>> " .. line .. "\n")
+		print(">>> " .. line)
 		prefix, command, args = tokenize_line(line)
 
 		if command == "PING" then
