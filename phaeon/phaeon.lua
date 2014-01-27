@@ -2,12 +2,8 @@
 
 socket = require("socket")
 
--- Configuration
-HOST="irc.yolo-swag.com"
-PORT=6667
-NICK="Phaeon"
-USER="phaeon"
-CHANNEL="#niichan"
+require("config")
+require("handlers")
 
 -- Helper functions
 function send_line(line, ...)
@@ -43,12 +39,8 @@ while true do
 		print(">>> " .. line)
 		prefix, command, args = tokenize_line(line)
 
-		if command == "PING" then
-			send_line("PONG %s", args)
-		end
-
-		if command == "376" then
-			send_line("JOIN " .. CHANNEL)
+		if verbs[command] then
+			verbs[command](prefix, rest)
 		end
 	end
 end
