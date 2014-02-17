@@ -1,0 +1,8 @@
+import java.util.LinkedList;
+
+public class HashTable {
+	private LinkedList<Anagram>[] table;
+	
+	public HashTable() {
+		
+}

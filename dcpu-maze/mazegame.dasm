@@ -1,0 +1,131 @@
+;;; Initialization
+
+:get_display
+	;; Lets you know where the display is
+	ADD [display_address], 1
+	HWQ [display_address] ; get info about the hardware it can find
+	
+	IFN A, 0xf615
+		; If we do not have ourselves a display, recurse
+		SET PC, get_display
+
+; Find the keyboard
+:get_keyboard
+	ADD [keyboard_address], 1
+	HWQ [keyboard_address]
+	IFN a, 0x7406      ; ID for the keyboard
+		SET pc, get_keyboard
+
+;Set up the screen to be memory mapped
+SET A, 0
+SET B, 0x8000
+HWI [display_address]
+
+;;; Main application logic goes here
+
+SET PC, crash
+
+;;; Nonshared subroutines
+
+:printMaze
+	SET PUSH, A
+	SET PUSH, B
+	SET PUSH, C
+
+	SET A, player_x
+	SET B, player_y
+	MUL B, 32
+	ADD A, B
+	;A is now the offset of the player
+
+	;Use B as the index of the maze
+	SET B, 0
+
+	SET PC, printMazeLoop
+
+:printMazeLoop
+	IFE B, 352
+		SET PC, printMazeEnd
+
+	; if the player is at the position being printed
+	SET X, player_x
+	SET Y, player_y
+	MUL Y, 32
+	ADD X, Y
+
+	IFE X, B
+		SET [screen_buffer+B], "@"
+	IFN X, B
+		SET [screen_buffer+B], [maze+B]
+
+	ADD B, 1
+	SET PC, printMazeLoop
+
+:printMazeEnd
+	SET C, POP
+	SET B, POP
+	SET A, POP
+
+;;; Shared subroutines
+
+;Crash handler, program is done
+:crash
+	SET PC, crash
+
+; prints(int A, int B, char * C);
+prints:
+    MUL A, B
+    ADD A, B
+    ADD A, screen_buffer
+prints_loop:
+    IFE [C], 0
+        SET PC, POP
+    SET B, [C]
+    BOR B, 0xF000
+    SET [A], B
+    ADD A, 1
+    ADD C, 1
+    SET PC, prints_loop
+
+:get_input
+	;; Return input on the C register
+	; we are going to modify the A register, it is a good idea to preserve its value on the stack
+	SET PUSH, A 
+	
+	; Tell the Keyboard we want input
+	SET A, 1
+	HWI [keyboard_address]
+	
+	; Restore state
+	SET A, POP
+	
+	; Return to the program
+	SET PC, POP
+
+;;; Variables
+
+:display_address
+	DAT 0xFFFF
+
+:keyboard_address
+	DAT 0xFFFF
+
+:screen_buffer
+	DAT 0x8000
+
+:maze
+	DAT "...............................S................................................................................................................................................................................................................................................................................................F...............................",0
+
+;Define the maze as 32 by 11 to allow a line for feedback
+:maze_width
+	DAT 32
+
+:maze_height
+	DAT 11
+
+;Define the player's position
+:player_x
+	DAT 31
+
+:player_y
+	DAT 0

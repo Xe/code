@@ -1,0 +1,4 @@
+name: HackedCommands
+version: 0.1
+main: us.dodrill.rainbowdash.hackedcommands.survival.SurvivalCommandsPlugin
+author: Sam Dodrill (shadowh511) <shadow.h511@gmail.com>

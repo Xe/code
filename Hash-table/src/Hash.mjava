@@ -1,0 +1,10 @@
+int hashFunction(String data) {
+	char ch;
+	hashValue = 0;
+
+	for (int i = 0; i < data.length(); i++) {
+		hashValue += data.charAt(i)*(i+1);
+	}
+
+	return hashValue % $length;
+}
