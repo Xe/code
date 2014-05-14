@@ -1,3 +1,4 @@
+#!/usr/bin/env lua
 --Need the sleep function
 require "socket"
 
