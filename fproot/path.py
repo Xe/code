@@ -20,7 +20,7 @@ def test_path(path):
 
     # Not portable to non-unix
     split = path.split("/")[1:]
-    loc = []
+    loc = 0
 
     for thing in split:
         if thing == ".":
@@ -28,11 +28,11 @@ def test_path(path):
             continue
         elif thing == "..":
             # One level up
-            loc.pop()
+            loc -= 1
         else:
-            loc.append(thing)
+            loc += 1
 
-    if len(loc) == 0:
+    if loc == 0:
         return True
 
     return False
