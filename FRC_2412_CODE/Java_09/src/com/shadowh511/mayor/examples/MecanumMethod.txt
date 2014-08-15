@@ -1,0 +1,79 @@
+velocity = (p1_y - 127); //Joystick 1 y
+turn = (p1_x - 127); //Joystick 1 x
+strafe = (p2_x - 127); // Joystick 2 x
+
+wFL = velocity - turn - strafe; //Front Left wheel, etc...
+wFR = velocity + turn + strafe;
+wRL = velocity - turn + strafe;
+wRR = velocity + turn - strafe;
+
+to do this in java, it would be:
+
+public void mecanumDrive(double velocity, double turn, double strafe) {
+    double FLval, FRval, RLval, RRval;
+
+    FLval = limit(velocity - turn - strafe); //Front Left wheel value, etc...
+    FRval = limit(velocity + turn + strafe);
+    RLval = limit(velocity - turn + strafe); //Rear Left
+    RRval = limit(velocity + turn - strafe);
+
+    set(FLval, FRval, RLval, RRval);  //sets the speed
+}
+
+we currently have:
+
+    public void checkingDrive(double magnitude, double rotation) { //DONT TOUCH THIS
+        magnitude = limit(magnitude);  //1 is highest, so make n > 1, 1
+        rotation  = limit(rotation);
+
+        double frontLeftSpeed, rearLeftSpeed, frontRightSpeed, rearRightSpeed;  //temporary motor speed values
+
+        frontLeftSpeed = ((magnitude - rotation));  //calculate speed values
+        frontRightSpeed = ((magnitude + rotation));
+        rearLeftSpeed = ((magnitude + rotation));
+        rearRightSpeed = ((magnitude - rotation));
+
+
+        double maxMotor = Math.max(
+            Math.max(Math.abs(frontLeftSpeed), Math.abs(frontRightSpeed)),
+            Math.max(Math.abs(rearLeftSpeed), Math.abs(rearRightSpeed))
+        );
+
+        if (maxMotor > 1){
+            frontRightSpeed = frontRightSpeed / maxMotor;
+            rearRightSpeed = rearRightSpeed / maxMotor;
+            frontLeftSpeed = frontLeftSpeed / maxMotor;
+            rearLeftSpeed = rearLeftSpeed / maxMotor;
+        }
+
+
+        frontLeftSpeed = limit(fiddleWithSpeed(frontLeftSpeed)); //squared inputs
+        frontRightSpeed = limit(fiddleWithSpeed(frontRightSpeed));
+        rearLeftSpeed = limit(fiddleWithSpeed(rearLeftSpeed));
+        rearRightSpeed = limit(fiddleWithSpeed(rearRightSpeed));
+
+        FLvictor.set(-frontLeftSpeed);  //set the speeds on the motors
+        FRvictor.set(frontRightSpeed);
+        RLvictor.set(-rearLeftSpeed);
+        RRvictor.set(rearRightSpeed);
+    }
+
+This method is so bizarre because we have our mecanum wheels in an X-layout, and not a O-layout like the
+top method dictates.  The suspension also interferes with the mecanum drive because it wrences the chains
+and can cause them to fall off easily.  This is unfixable in code as far as I know.
+
+I have used Team 451's ZomB dashboard C# frameowrk to write a custom dashboard for the team, I call it TotesDash.
+In order to utilize this in code, import com.shadowh511.mayor.utils.EasyZomBDash.  Then you have a variety
+of functions avalable that will feed data to the ZomB dashboard on the ClassMate.  There are the following
+meters / lights on the ClassMate:
+ * Three analog displays (leftAnalogMeter, middleAnalogMeter, rightAnalogMeter)
+ * A camera view
+ * A ready to fire light (readyLight)
+ * A light that signals when the gun is loaded
+ * A turn measure (turn)
+ * A speed graph (upperSpeedGraph)
+ * An output log (log)
+ * Two servo meters (servo1, servo2)
+ * A tacometer (taco)
+ * A battery meter (bat)
+

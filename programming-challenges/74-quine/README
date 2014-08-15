@@ -1,0 +1,4 @@
+Challenge #74: Quine.
+Written in bash.
+
+Usage: `./quine.sh`

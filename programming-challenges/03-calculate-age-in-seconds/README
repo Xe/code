@@ -1,0 +1,5 @@
+Programing challenge #3: Calculate age in seconds.
+Written in C
+
+Compile: `make agecalc`
+Run: `./agecalc <age in years>`

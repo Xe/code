@@ -1,0 +1,31 @@
+{
+	"server": {
+		"nick": "Asparagus",
+		"user": "asp",
+		"real": "Asparagus IRC bot",
+		"host": "irc.example.com",
+		"port": 6667,
+		"ssl": false,
+		"password": "yolo",
+		"channels": ["#channel"]
+	},
+
+	"mpd": {
+		"host": "127.0.0.1",
+		"port": 6600
+	},
+
+	"etc": {
+		"debug": false,
+		"fork": true,
+		"owner": "Herka",
+		"authcmd": "NS ID Herpen Derp",
+		"prefix": "%",
+		"prefixfile": "etc/prefix.txt",
+		"suffixfile": "etc/suffix.txt"
+	},
+
+	"apikeys": {
+		"worldweatheronline": "YOLOSWAG420"
+	}
+}

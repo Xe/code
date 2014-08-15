@@ -1,0 +1,13 @@
+the code in this project is written according to pep-8
+
+def example(args):
+    doSomeCrazyThing()
+
+someListOfThings = []
+
+Please use long variable names unless you are using a temporary
+variable, then make it r
+
+four spaces at the beginning makes the indent
+
+NO TABS

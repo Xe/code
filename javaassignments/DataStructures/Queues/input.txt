@@ -1,0 +1,16 @@
+#Comment
+
+Amarok
+400
+
+Reddit
+120
+
+Cadence
+303
+
+Chromium
+302
+
+Konsole
+350

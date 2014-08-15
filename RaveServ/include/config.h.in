@@ -1,0 +1,6 @@
+// the configured options and settings for raveserv
+#define raveserv_VERSION_MAJOR @raveserv_VERSION_MAJOR@
+#define raveserv_VERSION_MINOR @raveserv_VERSION_MINOR@
+
+
+

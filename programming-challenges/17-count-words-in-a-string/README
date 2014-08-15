@@ -1,0 +1,4 @@
+Programming challenge 17: Count words in a string.
+Written in Python.
+
+Usage: `./count.py "string to count the words in"`

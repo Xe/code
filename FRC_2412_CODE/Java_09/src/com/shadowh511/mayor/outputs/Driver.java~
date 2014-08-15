@@ -1,0 +1,295 @@
+package com.shadowh511.mayor.outputs;
+
+import com.shadowh511.mayor.inputs.SideWinder;
+import com.shadowh511.mayor.inputs.Attack3;
+import com.shadowh511.mayor.inputs.Xbox;
+import com.shadowh511.mayor.inputs.DualShock;
+import com.shadowh511.mayor.inputs.JessPad;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Victor;
+
+/**
+ *
+ * @author sam
+ */
+public class Driver {
+    private Victor  FLvictor;
+    private Victor  FRvictor;
+    private Victor  RLvictor;
+    private Victor  RRvictor;
+    private boolean mecanum;
+    private boolean wheel4;
+
+    /*
+     * Usage: Driver robot = new Driver(1,2);
+     */
+    public Driver(int L, int R) {
+        FLvictor = new Victor(L);
+        FRvictor = new Victor(R);
+        wheel4   = false;
+        mecanum  = false;
+    }
+
+    /*
+     * Usage: Driver robot = new Driver(1,2,3,4);
+     */
+    public Driver(int FL, int FR, int RL, int RR) {
+        wheel4   = true;
+        FLvictor = new Victor(FL);
+        FRvictor = new Victor(FR);
+        RLvictor = new Victor(RL);
+        RRvictor = new Victor(RR);
+        mecanum  = false;
+    }
+
+    /*
+     * Usage: Driver robot = new Driver(1,2,3,4,true);
+     */
+    public Driver(int FL, int FR, int RL, int RR, boolean mecanum) {
+        wheel4   = true;
+        FLvictor = new Victor(FL);
+        FRvictor = new Victor(FR);
+        RLvictor = new Victor(RL);
+        RRvictor = new Victor(RR);
+        mecanum  = true;
+    }
+
+    Driver() {  //for autonomousDriver, dont use
+        FLvictor = new Victor(1);
+        FRvictor = new Victor(2);
+        RLvictor = new Victor(3);
+        RRvictor = new Victor(4);
+        wheel4 = true;
+        mecanum = true;
+    }
+
+    /*
+     * This function takes in one input, speed.  If you dont have the mecanum
+     * flag defined, it will skip to just setting the speed.  Otherwise, it will
+     * set the speeds of the first two Victors.  If you are using four wheels
+     * in the constructor, it will also set those speeds accordingly.
+     */
+    public void drive(double speed) {
+        if (!mecanum) {
+            FLvictor.set(speed);
+            FRvictor.set(-speed);
+
+            if (wheel4) {
+                RLvictor.set(speed);
+                RRvictor.set(-speed);
+            }
+        } else {
+            this.holonomicDrive(speed, 0, 0);
+        }
+    }
+
+    /*
+     * This takes two inputs, left speed and right speed
+     * it sets the first two victors
+     * then it checks if you called Driver with 4 motor ports
+     * if that is true, it sets the values for the back two motors
+     */
+    public void tankDrive(double left, double right) {
+        if (!mecanum) {
+            FLvictor.set(left);
+            FRvictor.set(-right);
+
+            if (wheel4) {
+                RLvictor.set(left);
+                RRvictor.set(-right);
+            }
+        }
+    }
+
+    /*
+     * TankDrive, xbox 360 input version
+     */
+    public void tankDrive(Xbox foo) {
+        this.tankDrive(foo.getLeftStickY(), foo.getRightStickY());
+    }
+
+    /*
+     * TankDrive for 2 sideWinders
+     */
+    public void tankDrive(SideWinder foo, SideWinder bar) {
+        this.tankDrive(foo.getYAxis(), bar.getYAxis());
+    }
+
+    /*
+     * Attack3 joystick version
+     */
+    public void tankDrive(Attack3 foo, Attack3 bar) {
+        this.tankDrive(foo.getY(), bar.getY());
+    }
+
+    /*
+     * DualShock version (ps2 controller)
+     */
+    public void tankDrive(DualShock foo) {
+        this.tankDrive(foo.getLeftStickY(), foo.getRightStickY());
+    }
+
+    /*
+     * for the Jess Game pad/other usb gamepad
+     */
+    public void tankDrive(JessPad foo) {
+        this.tankDrive(foo.getLeftStickY(), foo.getRightStickY());
+    }
+
+    /*
+     * Makes sure we dont send a n<1 value to the victors, they dont like that
+     */
+    double limit(double num) {
+        if (num > 1.0) {
+            return 1.0;
+        }
+
+        if (num < -1.0) {
+            return -1.0;
+        }
+
+        return num;
+    }
+
+    double maxOf4(double one, double two, double three, double four) {
+        return Math.max(Math.max(Math.abs(one), Math.abs(two)), Math.max(Math.abs(three), Math.abs(four)));
+    }
+
+    /*
+     * This brilliant hack was make by our team's all around awesome mentor, Dimitri
+     * Dont touch it
+     *
+     * Takes one input, input.  if the input is positive, it squares it.  If its
+     * negative, it squares it while preserving the sign.  It returns the input.
+     *
+     * It allows greater control of speed while preserving the ability to go at full
+     * speed
+     */
+    public double fiddleWithSpeed(double input) {
+        if (input > 0) {
+            input = input * input;
+        } else {
+            input = -input * input;
+        }
+
+        return input;
+    }
+
+    public void holonomicDrive(double power, double slide, double spin) {
+        /*
+         * This is a correct mecanum wheel drive function
+         */
+        double fl, fr, rl, rr;
+
+        fl = power + slide + spin;
+        fr = power - slide - spin;
+        rl = power - slide + spin;
+        rr = power + slide - spin;
+
+        double max = this.maxOf4(fl, fr, rl, rr);
+
+        if (max>1) {
+            fl = fl/max;
+            fr = fr/max;
+            rl = rl/max;
+            rr = rr/max;
+        }
+
+        fl = limit(/*fiddleWithSpeed*/(fl));
+        fr = limit(/*fiddleWithSpeed*/(fr));
+        rl = limit(/*fiddleWithSpeed*/(rl));
+        rr = limit(/*fiddleWithSpeed*/(rr));
+
+        if(power != 0 || slide !=0 || spin != 0) {
+            System.out.println("#############################################");
+            System.out.println("power: " + power + "  spin: " + spin + "  slide: " + slide);  //debugOut
+            System.out.println("FLSpeed: " + fl + "  FRSpeed: " + fr);
+            System.out.println("RLSpeed: " + rl + "  RRSpeed: " + rr);
+        }
+
+        this.set(fl, fr, rl, rr);
+    }
+
+    public void hackedDrive(double power, double turn) {
+        double left,right;
+        
+        left = power - turn;
+        right = power + turn;
+
+        double max = Math.max(left, right);
+
+        if (max > 1) {
+            left = left/max;
+            right = right/max;
+        }
+
+        left = limit(fiddleWithSpeed(left));
+        right = limit(fiddleWithSpeed(right));
+
+        this.set(left, right);
+    }
+
+    public void hackedDrive(JessPad foo) {
+        double foos = -foo.getLeftStickX();
+        if(foos < 0.5) {
+            foos = 0;
+        }
+        this.hackedDrive(-foo.getLeftStickY(), foos);
+    }
+
+    public void stop() {
+        this.drive(0);
+    }
+
+    public void set(double left, double right) {
+        this.tankDrive(left, right);
+    }
+
+    public void set(double FL, double FR, double RL, double RR) {
+        this.FLvictor.set((limit(FL)));
+        this.FRvictor.set((limit(-FR)));
+        this.RLvictor.set(((limit(RL))));
+        this.RRvictor.set((limit(-RR)));
+    }
+
+    public double getAVGSpeed() {
+    /*
+     * If there are 4 wheels defined, return the values of all the victor values averaged, otherwise,
+     * return the speeds of the two wheels averaged.
+     *
+     * I know its ternary abuse, but it works (i tested it in javascript)
+     */
+        return wheel4 //condition to test
+                ? (this.FLvictor.get() + this.FRvictor.get() + //if its true
+                    this.RLvictor.get() + this.RRvictor.get())/ 4 //cont.
+                : (this.FLvictor.get() + this.FRvictor.get()) / 2; //if its false
+    }
+
+    public void strafeLeft() {
+        this.holonomicDrive(0, 0.5, 0);
+    }
+
+    public void strafeRight() {
+        this.holonomicDrive(0, -0.5, 0);
+    }
+
+    public void goForward() {
+        this.holonomicDrive(0.5, 0, 0);
+    }
+
+    public void goBackward() {
+        this.holonomicDrive(-0.5, 0, 0);
+    }
+
+    public void turnRight() {
+        this.holonomicDrive(0, 0, 0.5);
+    }
+
+    public void turnLeft() {
+        this.holonomicDrive(0, 0, -0.5);
+    }
+
+    public void holonomicDrive(JessPad foo) {
+        this.holonomicDrive(foo.getLeftStickY(), foo.getLeftStickX(), foo.getRightStickY()/2);
+    }
+}

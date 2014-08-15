@@ -1,0 +1,6 @@
+MIDlet-Name: Mecanum
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: FIRST
+MIDlet-1: Hakura, , com.shadowh511.mayor.examples.Hakura
+MicroEdition-Profile: IMP-1.0
+MicroEdition-Configuration: CLDC-1.1

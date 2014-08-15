@@ -1,0 +1,151 @@
+
+Time Slice: 30
+Latency: 40
+
+Adding Jobs to Queue
+--------------------
+Name	Time
+Amarok	400 milli-seconds to excute.
+Reddit	120 milli-seconds to excute.
+Cadence	303 milli-seconds to excute.
+Chromium	302 milli-seconds to excute.
+Konsole	350 milli-seconds to excute.
+
+ Begin Job Processing
+-----------------------
+Status:		Name:		Info:
+Wakeup		[Amarok]	400 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Reddit]	120 milliseconds remaining.
+Executing	[Reddit]	exectued for 30 ms
+Wakeup		[Cadence]	303 milliseconds remaining.
+Executing	[Cadence]	exectued for 30 ms
+Wakeup		[Chromium]	302 milliseconds remaining.
+Executing	[Chromium]	exectued for 30 ms
+Wakeup		[Konsole]	350 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	370 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Reddit]	90 milliseconds remaining.
+Executing	[Reddit]	exectued for 30 ms
+Wakeup		[Cadence]	273 milliseconds remaining.
+Executing	[Cadence]	exectued for 30 ms
+Wakeup		[Chromium]	272 milliseconds remaining.
+Executing	[Chromium]	exectued for 30 ms
+Wakeup		[Konsole]	320 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	340 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Reddit]	60 milliseconds remaining.
+Executing	[Reddit]	exectued for 30 ms
+Wakeup		[Cadence]	243 milliseconds remaining.
+Executing	[Cadence]	exectued for 30 ms
+Wakeup		[Chromium]	242 milliseconds remaining.
+Executing	[Chromium]	exectued for 30 ms
+Wakeup		[Konsole]	290 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	310 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Reddit]	30 milliseconds remaining.
+Executing	[Reddit]	exectued for 30 ms
+Wakeup		[Cadence]	213 milliseconds remaining.
+Executing	[Cadence]	exectued for 30 ms
+Wakeup		[Chromium]	212 milliseconds remaining.
+Executing	[Chromium]	exectued for 30 ms
+Wakeup		[Konsole]	260 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	280 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Reddit]	0 milliseconds remaining.
+Done		[Reddit]	completed at 790 ms
+Wakeup		[Cadence]	183 milliseconds remaining.
+Executing	[Cadence]	exectued for 30 ms
+Wakeup		[Chromium]	182 milliseconds remaining.
+Executing	[Chromium]	exectued for 30 ms
+Wakeup		[Konsole]	230 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	250 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Cadence]	153 milliseconds remaining.
+Executing	[Cadence]	exectued for 30 ms
+Wakeup		[Chromium]	152 milliseconds remaining.
+Executing	[Chromium]	exectued for 30 ms
+Wakeup		[Konsole]	200 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	220 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Cadence]	123 milliseconds remaining.
+Executing	[Cadence]	exectued for 30 ms
+Wakeup		[Chromium]	122 milliseconds remaining.
+Executing	[Chromium]	exectued for 30 ms
+Wakeup		[Konsole]	170 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	190 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Cadence]	93 milliseconds remaining.
+Executing	[Cadence]	exectued for 30 ms
+Wakeup		[Chromium]	92 milliseconds remaining.
+Executing	[Chromium]	exectued for 30 ms
+Wakeup		[Konsole]	140 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	160 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Cadence]	63 milliseconds remaining.
+Executing	[Cadence]	exectued for 30 ms
+Wakeup		[Chromium]	62 milliseconds remaining.
+Executing	[Chromium]	exectued for 30 ms
+Wakeup		[Konsole]	110 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	130 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Cadence]	33 milliseconds remaining.
+Executing	[Cadence]	exectued for 30 ms
+Wakeup		[Chromium]	32 milliseconds remaining.
+Executing	[Chromium]	exectued for 30 ms
+Wakeup		[Konsole]	80 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	100 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Cadence]	3 milliseconds remaining.
+Done		[Cadence]	completed at 1750 ms
+Wakeup		[Chromium]	2 milliseconds remaining.
+Done		[Chromium]	completed at 1753 ms
+Wakeup		[Konsole]	50 milliseconds remaining.
+Executing	[Konsole]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	70 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+Wakeup		[Konsole]	20 milliseconds remaining.
+Done		[Konsole]	completed at 1855 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	40 milliseconds remaining.
+Executing	[Amarok]	exectued for 30 ms
+---
+Status:		Name:		Info:
+Wakeup		[Amarok]	10 milliseconds remaining.
+Done		[Amarok]	completed at 1985 ms
+
+Total time:	1995 milliseconds
+

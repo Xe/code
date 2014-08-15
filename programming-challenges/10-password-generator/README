@@ -1,0 +1,6 @@
+Programming challenge #10: Password generator
+Written in C.
+
+Compile: `make passgen`
+Help: `./passgen -h`
+Basic use: `./passgen -l 25 -LNS`

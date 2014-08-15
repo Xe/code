@@ -1,0 +1,6 @@
+MIDlet-Name: Abomasnow
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: FIRST
+MIDlet-1: Main, , com.robototes.abomasnow.Main
+MicroEdition-Profile: IMP-1.0
+MicroEdition-Configuration: CLDC-1.1

@@ -1,0 +1,24 @@
+
+[indentation]
+indent_width=4
+indent_type=0
+indent_hard_tab_width=8
+detect_indent=false
+indent_mode=2
+
+[project]
+name=Robot Python
+base_path=/home/sam/Public/Robotics/RobotPy-WPILib-2010.beta2/samples/simple
+description=
+
+[long line marker]
+long_line_behaviour=1
+long_line_column=72
+
+[files]
+current_page=4
+FILE_NAME_0=0;Python;0;16;0;1;0;/home/sam/Public/Robotics/RobotPy-WPILib-2010.beta2/samples/simple/debug_tests.py;0
+FILE_NAME_1=0;Python;0;16;0;1;0;/home/sam/Public/Robotics/RobotPy-WPILib-2010.beta2/samples/simple/inputs.py;0
+FILE_NAME_2=0;Python;0;16;0;1;0;/home/sam/Public/Robotics/RobotPy-WPILib-2010.beta2/samples/simple/outputs.py;0
+FILE_NAME_3=0;Python;0;16;0;1;0;/home/sam/Public/Robotics/RobotPy-WPILib-2010.beta2/samples/simple/robot.py;0
+FILE_NAME_4=1332;Python;0;16;0;1;0;/home/sam/Public/Robotics/RobotPy-WPILib-2010.beta2/samples/simple/testing.py;0
