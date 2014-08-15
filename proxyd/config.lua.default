@@ -1,0 +1,6 @@
+nickname = "Foo"
+hostname = "znc.example.com"
+port = 6667
+
+password = "username/network:password"
+

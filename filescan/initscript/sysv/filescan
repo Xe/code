@@ -1,0 +1,56 @@
+#!/bin/bash
+#
+# starts and stops filescan
+# Sam Dodrill 2013-08-21
+
+### BEGIN INIT INFO
+# Provides:          filescan
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start filescan
+# Description:       Start filescan file scanning daemon
+### END INIT INFO
+
+# start filescan
+start() {
+        echo -e "starting filescan:"
+	if [ -e /var/lib/filescan/filescan.pid ]
+	then
+		echo -e "ERROR: filescan is already running"
+		exit
+	else
+	        su filescan -c "/usr/bin/python /var/lib/filescan/filescan.py" &
+        	echo -e "filescan is now running"
+	fi
+}
+# stop filescan
+stop() {
+        echo -e "stopping filescan:"
+	if [ -e /var/lib/filescan/filescan.pid ]
+		kill -9 `cat /var/lib/filescan/filescan.pid`
+		rm /var/lib/filescan/filescan.pid
+		echo -e "filescan stopped"
+	else
+		echo -e "filescan is not running"
+	fi
+        echo
+}
+### main logic ###
+case "$1" in
+  start)
+        start
+        ;;
+  stop)
+        stop
+        ;;
+  restart|reload|condrestart)
+        stop
+        start
+        ;;
+  *)
+        echo $"Usage: $0 {start|stop|restart|reload}"
+        exit 1
+esac
+exit 0

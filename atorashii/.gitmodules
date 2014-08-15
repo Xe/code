@@ -1,0 +1,6 @@
+[submodule "src/niilib"]
+	path = src/niilib
+	url = https://github.com/lyska/niilib.git
+[submodule "docs/ircv3"]
+	path = docs/ircv3
+	url = https://github.com/atheme/ircv3-specifications.git
