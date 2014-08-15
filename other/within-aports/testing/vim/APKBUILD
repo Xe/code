@@ -1,0 +1,60 @@
+# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+pkgname=vim
+pkgver=7.4
+_srcver=${pkgver%.*}
+_patchver=${pkgver##*.}
+pkgrel=10
+pkgdesc="advanced text editor"
+url="http://www.vim.org"
+arch="all"
+license='GPL'
+depends=
+makedepends="ncurses-dev lua5.2-dev python-dev"
+subpackages="$pkgname-doc"
+#source="http://dev.alpinelinux.org/archive/vim/vim-$pkgver.tar.xz
+source="ftp://ftp.vim.org/pub/vim/unix/vim-$pkgver.tar.bz2
+	vim-gcc47.patch
+	vimrc
+	"
+_builddir="$srcdir"/${pkgname}${pkgver/./}
+
+prepare() {
+	cd "$_builddir"
+	patch -p0 -i "$srcdir"/vim-gcc47.patch || return 1
+
+	# Read vimrc from /etc/vim
+	echo '#define SYS_VIMRC_FILE "/etc/vim/vimrc"' >> src/feature.h
+}
+
+build() {
+	cd "$_builddir"
+	./configure \
+		--build=$CBUILD \
+		--host=$CHOST \
+		--prefix=/usr \
+		--enable-luainterp \
+		--without-x \
+		--disable-nls \
+		--enable-multibyte \
+		--enable-gui=no \
+		--with-lua-prefix=/usr/lua5.2 \
+		--enable-pythoninterp \
+		|| return 1
+	make || return 1
+}
+
+package() {
+	cd "$_builddir"
+	make -j1 DESTDIR="$pkgdir/" install
+	install -D "$srcdir"/vimrc "$pkgdir"/etc/vim/vimrc
+}
+
+md5sums="607e135c559be642f210094ad023dc65  vim-7.4.tar.bz2
+a2e71b09d38921d43d2a552d4f0bd1aa  vim-gcc47.patch
+df55df3a693b687b268aa4be1e409023  vimrc"
+sha256sums="d0f5a6d2c439f02d97fa21bd9121f4c5abb1f6cd8b5a79d3ca82867495734ade  vim-7.4.tar.bz2
+9997f5a3c36e5b41008ac2d84165dda4d20124043cbc033d1d69e5d884fb4334  vim-gcc47.patch
+9b0077659fcc7516a20b5fe6d461cba3160ea397a7be77c140392c72f1d0a42a  vimrc"
+sha512sums="65d55da556ee283a364b376d251b70e430b7a157bb5a8ee89565060ff9937907966d416cffd33f701b3314d0fdf16efe00065f66bc8459469f5ae2f713418e0e  vim-7.4.tar.bz2
+a212404de5e4bf70bd584e3f46a22c3e246f206cf995c5771a020be9eb7b6bc71d422788b309eb677b2822df94266854704c29802f2f8e47cea6905d68833460  vim-gcc47.patch
+476d0928c9b882d98d6ecbe8eb3383c128bcdeed48c88950e6b9f5629624fba1f1ecd55334f4909686c394bcd55a368326495ff5877d34251ab0317f644ec258  vimrc"

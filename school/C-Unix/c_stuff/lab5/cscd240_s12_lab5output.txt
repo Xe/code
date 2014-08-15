@@ -1,0 +1,35 @@
+sam@rarity:~/Code/C_Unix/c_stuff/lab5$ ./lab5 
+fname> hugh.txt
+name: Hugh Jelly
+
+Assignment Avg:         73.428571
+Quiz Avg:               23.750000
+Exam Avg:               72.500000
+Final Avg:              200.000000
+Raw Score:              0.819964
+GPA:            2.70
+Again? (y/n): n
+
+sam@rarity:~/Code/C_Unix/c_stuff/lab5$ ./lab5 
+fname> scores1.txt
+name: Stu Steiner
+
+Assignment Avg:         100.000000
+Quiz Avg:               25.000000
+Exam Avg:               100.000000
+Final Avg:              200.000000
+Raw Score:              1.000000
+GPA:            4.00
+Again? (y/n): n
+
+sam@rarity:~/Code/C_Unix/c_stuff/lab5$ ./lab5 
+fname> rarity.txt
+name: Rarity Belle
+
+Assignment Avg:         49.142857
+Quiz Avg:               23.750000
+Exam Avg:               69.000000
+Final Avg:              125.000000
+Raw Score:              0.620321
+GPA:            0.70
+Again? (y/n): n

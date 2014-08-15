@@ -1,0 +1,50 @@
+# Contributor: Kyle Johnson <kyle@vacantminded.com>
+# Maintainer: Kyle Johnson <kyle@vacantminded.com>
+pkgname=weechat-nightly
+pkgver=`date -u +%Y%m%d`
+pkgrel=0
+pkgdesc="Fast, light, and extensible IRC client (curses UI)"
+url="http://weechat.org/"
+arch="all"
+license="GPL3"
+depends="gnutls"
+depends_dev="git cmake pkgconfig libiconv-dev libintl ncurses-dev gnutls-dev lua-dev aspell-dev perl-dev python-dev curl-dev libgcrypt-dev ruby-gems ruby-dev"
+makedepends="$depends_dev"
+install=""
+subpackages=""
+source=""
+
+_gitroot="git://git.sv.gnu.org/weechat.git"
+_gitname="weechat"
+_builddir="$srcdir/$_gitname-build"
+
+build() {
+	cd "$srcdir"
+	echo "Connecting to git server..."
+	
+	if [ -d $_gitname ] ; then
+		cd $_gitname && git pull origin
+		echo "Local files updated."
+	else
+		echo "Cloning repo..."
+		git clone $_gitroot $_gitname
+	fi
+	
+	echo "Done"
+	
+	rm -rf "$_builddir"
+
+	git clone "$srcdir/$_gitname" "$_builddir"
+	cd "$_builddir"
+	
+	mkdir build
+	cd build
+	
+	cmake .. -DCMAKE_BUILD_TYPE=Debug -DPREFIX=/usr
+}
+
+package() {
+	cd "$_builddir/build"
+	make DESTDIR="$pkgdir/" install
+}
+

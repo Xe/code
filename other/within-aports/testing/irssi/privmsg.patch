@@ -1,0 +1,122 @@
+commit 544d5a2ffac7a83dc8772178566d7f062ddc7517
+Author: hondza <sedaj2@gmail.com>
+Date:   Tue Dec 25 12:15:05 2012 +0100
+
+    (hondza) Fix FS#833. Those PRIVMSGs will be in the correct query now.
+
+diff --git a/src/fe-common/core/fe-messages.c b/src/fe-common/core/fe-messages.c
+index 846272f..0848fb2 100644
+--- a/src/fe-common/core/fe-messages.c
++++ b/src/fe-common/core/fe-messages.c
+@@ -231,19 +231,33 @@ static void sig_message_public(SERVER_REC *server, const char *msg,
+ }
+ 
+ static void sig_message_private(SERVER_REC *server, const char *msg,
+-				const char *nick, const char *address)
++				const char *nick, const char *address, const char *target)
+ {
+ 	QUERY_REC *query;
+         char *freemsg = NULL;
++    int own = 0;
+ 
+-	query = query_find(server, nick);
++    /* my message returned by bouncer? */
++    if(!strcmp(nick, server->nick))
++        own = 1;
++
++	query = query_find(server, own == 1 ? target : nick);
+ 
+ 	if (settings_get_bool("emphasis"))
+ 		msg = freemsg = expand_emphasis((WI_ITEM_REC *) query, msg);
+ 
++    if(own == 1)
++    {
++    printformat(server, target, MSGLEVEL_MSGS,
++            query == NULL ? TXT_OWN_MSG_PRIVATE :
++            TXT_OWN_MSG_PRIVATE_QUERY, target, msg, server->nick);
++    }
++    else
++    {
+ 	printformat(server, nick, MSGLEVEL_MSGS,
+ 		    query == NULL ? TXT_MSG_PRIVATE :
+ 		    TXT_MSG_PRIVATE_QUERY, nick, address, msg);
++    }
+ 
+ 	g_free_not_null(freemsg);
+ }
+diff --git a/src/fe-common/core/fe-queries.c b/src/fe-common/core/fe-queries.c
+index adf2b3d..1904f5b 100644
+--- a/src/fe-common/core/fe-queries.c
++++ b/src/fe-common/core/fe-queries.c
+@@ -326,12 +326,17 @@ static int sig_query_autoclose(void)
+ }
+ 
+ static void sig_message_private(SERVER_REC *server, const char *msg,
+-				const char *nick, const char *address)
++				const char *nick, const char *address, const char *target)
+ {
+ 	QUERY_REC *query;
++    int own = 0;
++
++    /* my message returned by bouncer? */
++    if(!strcmp(nick, server->nick))
++        own = 1;
+ 
+ 	/* create query window if needed */
+-	query = privmsg_get_query(server, nick, FALSE, MSGLEVEL_MSGS);
++	query = privmsg_get_query(server, own == 1 ? target : nick, FALSE, MSGLEVEL_MSGS);
+ 
+ 	/* reset the query's last_unread_msg timestamp */
+         if (query != NULL)
+diff --git a/src/fe-common/irc/fe-irc-messages.c b/src/fe-common/irc/fe-irc-messages.c
+index fb8d1e9..0b3fd09 100644
+--- a/src/fe-common/irc/fe-irc-messages.c
++++ b/src/fe-common/irc/fe-irc-messages.c
+@@ -160,6 +160,7 @@ static void sig_message_irc_action(IRC_SERVER_REC *server, const char *msg,
+ 	const char *oldtarget;
+         char *freemsg = NULL;
+ 	int level;
++	int own = 0;
+ 
+ 	oldtarget = target;
+ 	target = skip_target(IRC_SERVER(server), target);
+@@ -172,8 +173,14 @@ static void sig_message_irc_action(IRC_SERVER_REC *server, const char *msg,
+ 
+ 	if (ischannel(*target))
+ 		item = irc_channel_find(server, target);
+-        else
++		else {
++		if(!strcmp(nick, server->nick)) {
++			own = 1;
++			item = privmsg_get_query(SERVER(server), target, FALSE, level);
++		} else {
+ 		item = privmsg_get_query(SERVER(server), nick, FALSE, level);
++		}
++	}
+ 
+ 	if (settings_get_bool("emphasis"))
+ 		msg = freemsg = expand_emphasis(item, msg);
+@@ -191,11 +198,23 @@ static void sig_message_irc_action(IRC_SERVER_REC *server, const char *msg,
+ 				    nick, oldtarget, msg);
+ 		}
+ 	} else {
++		/* own action bounced */
++		if(own)
++		{
++			printformat(server, target,
++				MSGLEVEL_ACTIONS | MSGLEVEL_MSGS,
++				item != NULL && oldtarget == target ? IRCTXT_OWN_ACTION : IRCTXT_OWN_ACTION_TARGET,
++				server->nick, msg, oldtarget);
++
++		}
+ 		/* private action */
++        else
++        {
+ 		printformat(server, nick, MSGLEVEL_ACTIONS | MSGLEVEL_MSGS,
+ 			    item == NULL ? IRCTXT_ACTION_PRIVATE :
+ 			    IRCTXT_ACTION_PRIVATE_QUERY,
+ 			    nick, address == NULL ? "" : address, msg);
++        }
+ 	}
+ 	
+ 	g_free_not_null(freemsg);

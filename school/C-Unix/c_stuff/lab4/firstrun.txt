@@ -1,0 +1,17 @@
+Base Address: 0x7fff0b79c770
+
+Memory map:
+
+Address		Index	Value
+0x7fff0b79c770	(ptr)	(ptr)
+0x7fff0b79c774	0	2
+0x7fff0b79c778	1	4
+0x7fff0b79c77c	2	6
+0x7fff0b79c780	3	8
+0x7fff0b79c784	4	10
+0x7fff0b79c788	5	12
+0x7fff0b79c78c	6	14
+0x7fff0b79c790	7	16
+0x7fff0b79c794	8	18
+0x7fff0b79c798	9	20
+0x7fff0b79c79c	aptr	(arr)

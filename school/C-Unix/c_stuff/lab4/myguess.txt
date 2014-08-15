@@ -1,0 +1,21 @@
+0x7fff0b79c770 - 0x7fff0b79c79c
+
+output is:
+0x7fff0b79c778 //arr[1]
+0x7fff0b79c77c //arr[2]
+0x7fff0b79c79c //aptr
+
+Increment the pointer
+0x7fff0b79c774
+
+Increment the value of the pointer, arr[1] is now 5
+
+Increment the value of the pointer again, arr[1] is now 6
+
+Show the value of the pointer +1, arr[1] is unchanged but 7 is displayed
+
+The value of arr[2] is now the value of the sum of arr[1] and 100
+
+Move the pointer 5 slots down, pointer is at arr[6]
+
+

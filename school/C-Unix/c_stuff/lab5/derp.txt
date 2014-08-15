@@ -1,0 +1,30 @@
+In file included from cscd240_s12_lab5.c:1:0:
+grades.h:7:24: error: unknown type name ‘FILE’
+grades.h:8:1: error: unknown type name ‘FILE’
+cscd240_s12_lab5.c: In function ‘main’:
+cscd240_s12_lab5.c:7:2: error: unknown type name ‘FILE’
+cscd240_s12_lab5.c:7:15: error: ‘NULL’ undeclared (first use in this function)
+cscd240_s12_lab5.c:7:15: note: each undeclared identifier is reported only once for each function it appears in
+cscd240_s12_lab5.c:16:3: warning: incompatible implicit declaration of built-in function ‘fscanf’ [enabled by default]
+cscd240_s12_lab5.c:18:15: warning: assignment makes pointer from integer without a cast [enabled by default]
+cscd240_s12_lab5.c:19:11: warning: assignment makes pointer from integer without a cast [enabled by default]
+cscd240_s12_lab5.c:20:9: warning: assignment makes pointer from integer without a cast [enabled by default]
+cscd240_s12_lab5.c:21:10: warning: assignment makes pointer from integer without a cast [enabled by default]
+In file included from grades.c:1:0:
+grades.h:7:24: error: unknown type name ‘FILE’
+grades.h:8:1: error: unknown type name ‘FILE’
+grades.c:3:24: error: unknown type name ‘FILE’
+grades.c:18:1: error: unknown type name ‘FILE’
+grades.c: In function ‘openFile’:
+grades.c:19:2: error: unknown type name ‘FILE’
+grades.c:19:15: error: ‘NULL’ undeclared (first use in this function)
+grades.c:19:15: note: each undeclared identifier is reported only once for each function it appears in
+grades.c:23:3: warning: incompatible implicit declaration of built-in function ‘fprintf’ [enabled by default]
+grades.c:23:11: error: ‘stderr’ undeclared (first use in this function)
+grades.c:24:3: warning: incompatible implicit declaration of built-in function ‘fscanf’ [enabled by default]
+grades.c:24:10: error: ‘stdin’ undeclared (first use in this function)
+grades.c:25:7: warning: assignment makes pointer from integer without a cast [enabled by default]
+grades.c: In function ‘goAgain’:
+grades.c:38:2: warning: incompatible implicit declaration of built-in function ‘printf’ [enabled by default]
+grades.c:39:2: warning: incompatible implicit declaration of built-in function ‘scanf’ [enabled by default]
+make: *** [all] Error 1

@@ -1,0 +1,54 @@
+./lab3 < input.txt
+Welcome to the Grade Calculator Program.
+
+This program will produce a weighted percentage based on the scores earned in four
+categories: assignments, quizzes, exams, and a final exam. In addition to the weighted
+percentage, the associated Grade Point will also be reported.
+
+Reporting on: Pinkamina Diane Pie
+
+Avg of assignments:	 97%
+Avg of quizzes:		 99%
+Avg of exams:		 88%
+Final score:		100%
+
+Weighted grades:
+total:			0.95
+GPA:			4.00
+
+./lab3 < input.txt
+Welcome to the Grade Calculator Program.
+
+This program will produce a weighted percentage based on the scores earned in four
+categories: assignments, quizzes, exams, and a final exam. In addition to the weighted
+percentage, the associated Grade Point will also be reported.
+
+Reporting on: Rarity Belle
+
+Avg of assignments:	 58%
+Avg of quizzes:		 94%
+Avg of exams:		 68%
+Final score:		 50%
+
+Weighted grades:
+total:			0.62
+GPA:			0.70
+
+./lab3 < input.txt
+Welcome to the Grade Calculator Program.
+
+This program will produce a weighted percentage based on the scores earned in four
+categories: assignments, quizzes, exams, and a final exam. In addition to the weighted
+percentage, the associated Grade Point will also be reported.
+
+Reporting on: Hugh Jelly
+
+Avg of assignments:	 73%
+Avg of quizzes:		 95%
+Avg of exams:		 72%
+Final score:		100%
+
+Weighted grades:
+total:			0.82
+GPA:			2.70
+

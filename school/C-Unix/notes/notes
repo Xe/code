@@ -1,0 +1,332 @@
+Wonderful world of C
+
+C-Java !=
+in java, erverything is a class, filename == class name
+No classes in C 
+C files are named intelligently
+
+C file structure
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+comment structures are the same
+
+#include "myFile.h"
+
+int main()
+
+int main (int argc, char **argv)
+
+
+No textbook
+Google is friend and enemy
+DO THE FUCKING HOMEWORK
+
+need a 32 bit os, installing one in my netbook
+
+operating system has a kernel that manages shit
+
+Kernel gives us a shell (NOT ACCURATE)
+interacting with the OS at a low level
+
+shell starts at some directory
+
+directories in unix are off of a single mount point, /
+(also called root)
+flat filesystem
+
+can navigate via absolute and relative paths
+
+.  current directory
+.. one level up
+
+
+single file tree -> no drive letters
+root node is /
+
+mounting filesystem to a point on /
+
+df tells us the filesystems mounted
+
+man is the manual pages, help pages
+dir is for listing directory contents, ls is better
+clear clears the screen
+
+
+Moving functions into a header file
+
+3 file format:
+ - tester.c, whatever.h, whatever.c
+
+gcc -E test.c spits out preprocessor shit
+
+compile process is 2 step:
+1. preprocessor runs
+2. syntax compiler runs and either gives you a syntax error or makes a binary
+
+example.h and example.c are "married" to eachother
+
+angle brackets mean look in shared include, quotes mean look in the current directory
+
+REMEMBER TO INCLUDE THE HEADER IN ALL RELEVANT FILES
+
+when compiling, do not compile .h files
+
+---
+
+pointers:
+
+Wat is pointer?
+
+Is a variable that holds for its value a memory location
+
+3 ways:
+ - * the key pointer thing
+   - (type) * (name)
+   - (type) ** (name)
+   - (type) * (name), * (othername)
+   - int * name, r, *t;
+
+Make pointers hold either a known value or nothing
+
+printf value %p prints hex
+
+printf("%i\n", *ptr); //resolves ptr to the value
+
+---
+
+int values are 4 bytes in size
+
+int x -> 614
+int y -> 618
+int * ptr -> 61C
+
+a pointer regardless of the type is 4 bytes, it's holding a memory address, memory addresses are 4 bytes long
+
+when you ampersand a variable, you are really making an inline pointer
+
+	type	value
+&x	int*	614
+*ptr	int	12
+*(&x)	int	12
+
+ptr++	that would move ptr from 614 to 618
+
+---
+
+int x = 12;
+iny y = 15;
+
+swap(&x, &y);
+
+void swap(int *, int *);
+
+void swap(int * one, int * two) {
+	int temp = *one;
+	
+	*one = *two;
+	*two = temp;
+}
+
+Does not work because of local scoping
+
+---
+
+int array[5];
+int *ptr = array;
+
+
+address	aabb0	aabb4	aabb8	aabbc	aabc0
+index	0	1	2	3	4
+value	10	20	30	40	50
+
+printf			type	value
+printf("%p\n", ptr);	int*	aabb0
+printf("%d\n", *ptr);	int	10
+printf("%d\n", ptr[3]);	int	40
+
+---
+
+"dynamic" arrays
+
+int nums[100];
+int total;
+double mean;
+
+FILE * fin = fopen("test.txt", "r");
+
+while(!feof(fin)) {
+	total = fillArray(nums, fin);
+	
+	mean = findMean(nums, total);
+}
+
+flcose(fin);a
+
+to dynamically allocate:
+
+1. a pointer that will refer to the memory
+2. to get memory, you use malloc / calloc
+
+(void *) malloc (# * $size);
+(void *) calloc (#, $size);
+
+pick one
+
+array = (int *) malloc(total * sizeof(int));
+
+array = (int *) calloc(total, sizeof(int)); //zeroes out each element, use this
+
+if(array == NULL) {
+	exit(-1):
+}
+
+int * fillArray (FILE * fin, int * total) {
+	int x, num;
+	
+	fscanf(fin, "%i", &num);
+	
+	int * array = (int *) malloc(num * sizeof(int));
+
+	foreach, fill array;
+
+	return array;
+}
+
+when you are done, run free(array); and then array = NULL;
+
+---
+
+int fillArray(int * array1, FILE * fin) {
+	int total, x;
+	
+	fscanf(fin, "%c", &total);
+	
+	for(x = 0; x < total; x++) {
+		fscanf(fin, "%c", $array1[x]);
+	}
+	
+	return total;
+}
+
+int fillArray2(int * array2, FILE * fin) {
+	int total, x;
+	
+	fscanf(fin, "%c", &total);
+	
+	array2 = (int *) malloc(total * sizeof(int));
+
+	for(x = 0; x < total; x++) {
+                fscanf(fin, "%c", &array1[x]);
+        }
+
+        return total;
+}
+
+get a valgrind
+
+---
+
+GDB for dummies:
+
+gcc -g //adds debugging symbols
+
+
+
+---
+
+GDB for dummies:
+
+gcc -g //adds debugging symbols
+
+run runs a program
+
+---
+
+Exam 1:
+
+Very limited unix stuff
+C and everything C
+ - #define
+ - 3 file format
+ - *pointers*
+ - basic gdb
+ - dynamic allocation
+ - static arrays
+ - Files
+ - Makefiles
+
+Read your fucking notes
+
+---
+
+int x = 12;	//2000
+int y = 15;	//2004
+int *ptr = &y;	//2008
+
+	type	value
+*(&y)	int	15
+&(*15)	not allowed
+*ptr	int	15
+ptr	int*	2004
+&ptr	int**	2008
+
+*(ptr = &x) = *ptr + 5
+
+any time you wanna fuck with raw data, you gotta pass it as a pointer
+
+incrementor position matters with pointers
+
+---
+
+Flaws in our programming:
+ - Lots of compiler warnings
+ - Note compiler warnings
+
+---
+
+2D Arrays:
+ - Statically declared with [] we draw the picture as
+
+2	4	6
+8	10	12
+14	16	18
+20	22	24
+
+ - in memory they really are this:
+
+2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24
+
+ - the 2D array is a pointer to the rows, the rows are pointers to the array of coulmns
+ - 
+
+twod		int*	b0
+twod+1		int*	bc
+*twod + 1	int*	b4
+
+---
+
+void function1(int twod[][3], int rows, int cols) {
+	int x,y;
+
+	for(x = 0; x < rows; x++) {
+		for(y = 0; y < cols; y++) {
+			printf("%d ", twod[x][y]);
+		}
+		
+		printf("\n");
+	}
+}
+
+---
+
+char temp[100];
+//print prompt
+scanf("%s", temp);
+int len = strlen(temp);
+char * name = (char *) malloc((len+1) * sizeof(char));
+strncpy(name, temp, len);
+
+

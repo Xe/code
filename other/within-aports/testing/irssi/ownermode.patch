@@ -1,0 +1,14 @@
+diff --git a/src/irc/core/irc-nicklist.c b/src/irc/core/irc-nicklist.c
+index d8acc97..2817c2f 100644
+--- a/src/irc/core/irc-nicklist.c
++++ b/src/irc/core/irc-nicklist.c
+@@ -150,6 +150,9 @@ static void event_names_list(IRC_SERVER_REC *server, const char *data)
+ 			prefix_add(prefixes, *ptr, (SERVER_REC *) server);
+ 			switch (*ptr) {
+ 			case '@':
++			case '&':
++			case '!':
++			case '~':
+                                 op = TRUE;
+                                 break;
+ 			case '%':

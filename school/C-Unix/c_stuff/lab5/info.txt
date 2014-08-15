@@ -1,0 +1,3 @@
+scores1.txt is a 4.0
+hugh.txt is a 2.7
+rarity.txt is a 0.7

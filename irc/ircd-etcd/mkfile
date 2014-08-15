@@ -1,0 +1,24 @@
+PUBLIC_IP=172.17.42.1
+
+cluster:QV:
+	docker run --name etcd-1 -d -p 8001:8001 -p 5001:5001 coreos/etcd -peer-addr ${PUBLIC_IP}:8001 -addr ${PUBLIC_IP}:5001 -name etcd-node1
+	docker run --name etcd-2 -d -p 8002:8002 -p 5002:5002 coreos/etcd -peer-addr ${PUBLIC_IP}:8002 -addr ${PUBLIC_IP}:5002 -name etcd-node2 -peers ${PUBLIC_IP}:8001,${PUBLIC_IP}:8002,${PUBLIC_IP}:8003
+	docker run --name etcd-3 -d -p 8003:8003 -p 5003:5003 coreos/etcd -peer-addr ${PUBLIC_IP}:8003 -addr ${PUBLIC_IP}:5003 -name etcd-node3 -peers ${PUBLIC_IP}:8001,${PUBLIC_IP}:8002,${PUBLIC_IP}:8003
+	curl -L ${PUBLIC_IP}:5001/v2/stats/leader
+	echo "\n\nCluster set up, master node at ${PUBLIC_IP}:5001, control port ${PUBLIC_IP}:8001"
+
+cluster-destroy:QV:
+	echo "Destroying cluster"
+	docker stop etcd-1 etcd-2 etcd-3 > /dev/null
+	docker rm etcd-1 etcd-2 etcd-3 > /dev/null
+	echo "Cluster destroyed."
+
+seed:QV:
+	echo "Seeding cluster..."
+	python tools/seed.py > /dev/null
+	echo "Seeding complete"
+
+seed-cluster:V:
+	mk cluster
+	mk seed
+

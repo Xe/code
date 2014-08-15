@@ -1,0 +1,29 @@
+# Maintainer: Bartłomiej Piotrowski <bpiotrowski@alpinelinux.org>
+# Contributor: William Pitcock <nenolod@dereferenced.org>
+
+pkgname=nodejs
+pkgver=0.10.17
+pkgrel=0
+pkgdesc='Evented I/O for V8 javascript'
+url='http://nodejs.org/'
+arch='all'
+license='MIT'
+makedepends="$depends_dev python openssl-dev"
+subpackages="$pkgname-dev $pkgname-doc"
+source="http://nodejs.org/dist/v$pkgver/node-v$pkgver.tar.gz"
+
+build() {
+  cd "$srcdir"/node-v$pkgver
+  ./configure --prefix=/usr \
+    --shared-openssl || return 1
+  make || return 1
+}
+
+package() {
+  cd "$srcdir"/node-v$pkgver
+  make DESTDIR="$pkgdir" install || return 1
+}
+
+md5sums="a2b05af77e8e3ef3b4c40a68372429f1  node-v0.10.17.tar.gz"
+sha256sums="1f9de40dd2d98bc984a4970ef399ed3ad67f040feaafc711e549f3265bcce61c  node-v0.10.17.tar.gz"
+sha512sums="bb7a2f5ffb86cc6945460d00b03ec9c577a5128bf3d88d80cf0ec37359a73a07450657e7ed3a0f7638460990fdf4deb67d2e03dea8385e0555c5301f6205d93d  node-v0.10.17.tar.gz"

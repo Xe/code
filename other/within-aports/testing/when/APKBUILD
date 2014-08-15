@@ -1,0 +1,42 @@
+# Contributor:
+# Maintainer:
+pkgname=when
+pkgver=1.1.31
+pkgrel=0
+pkgdesc="Extremely simple calendar program"
+url="http://lightandmatter.com/when/when.html"
+arch="all"
+license="GPL2"
+depends="perl"
+depends_dev=""
+makedepends="$depends_dev"
+install=""
+subpackages="$pkgname-doc"
+source="http://lightandmatter.com/when/when.tar.gz"
+
+_builddir="src/when_dist"
+prepare() {
+	local i
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+}
+
+build() {
+	echo "No build needed"
+}
+
+package() {
+	pwd
+	cd "$_builddir"
+	pwd
+	make DESTDIR="$pkgdir" install || return 1
+	rm -f "$pkgdir"/usr/lib/*.la
+}
+
+md5sums="72d4c1c0fbad5c2ca6b9e8bb449f7b39  when.tar.gz"
+sha256sums="5b76a660bc234e53d19a1ba6024364394ee57e8b843acc5e43d73be091a8e49b  when.tar.gz"
+sha512sums="55a8a5bc22e04f3ea830de76ac3cc1ef3e4d1a2c496b6138f8aab90c86fb4dec20478723e6351463a834dde1d10d937715f3c0df874da4f6192bd90ea9674690  when.tar.gz"

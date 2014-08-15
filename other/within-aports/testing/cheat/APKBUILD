@@ -1,0 +1,54 @@
+# Contributor: Sam Dodrill <shadow.h511@gmail.com>
+# Maintainer: Sam Dodrill <shadow.h511@gmail.com>
+pkgname=cheat
+pkgver=`date -u +%Y%m%d`
+pkgrel=1
+pkgdesc="Cheatsheets for common Linux tools"
+url="https://github.com/chrisallenlane/cheat"
+arch="noarch"
+license="GPLv3"
+depends="python"
+depends_dev=""
+makedepends="python-dev"
+install=""
+subpackages=""
+source=""
+
+_gitroot="https://github.com/chrisallenlane/cheat.git"
+_gitname="cheat"
+_builddir="$srcdir/$_gitname-build"
+
+_builddir=
+prepare() {
+	local i
+	cd "$_builddir"
+	for i in $source; do
+		case $i in
+		*.patch) msg $i; patch -p1 -i "$srcdir"/$i || return 1;;
+		esac
+	done
+}
+
+build() {
+        cd "$srcdir"
+        echo "Connecting to git server..."
+
+        if [ -d $_gitname ] ; then
+                cd $_gitname && git pull origin
+                echo "Local files updated."
+        else
+                echo "Cloning repo..."
+                git clone $_gitroot $_gitname
+        fi
+
+        echo "Done"
+
+	cd "$srcdir/$_gitname"
+	python setup.py build || return 1
+}
+
+package() {
+	cd "$srcdir/$_gitname"
+	python setup.py install --prefix=/usr --root="$pkgdir" || return 1
+}
+
