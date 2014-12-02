@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Sam Dodrill <xe@yolo-swag.com>
+ * Copyright (c) 2014 Sam Dodrill <xena@yolo-swag.com>
  *
  * Code is WTFPL
  *
@@ -12,7 +12,7 @@ DECLARE_MODULE_V1
 (
 	"contrib/cs_permreg", false, _modinit, _moddeinit,
 	PACKAGE_STRING,
-	"Sam Dodrill <shadow.h511@gmail.com>"
+	"Sam Dodrill <xena@yolo-swag.com>"
 );
 
 static void register_hook(hook_channel_req_t *hdata)
