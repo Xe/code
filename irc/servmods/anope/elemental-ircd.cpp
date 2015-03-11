@@ -1,6 +1,6 @@
 /* Elemental-IRCd functions
  *
- * (C) 2014 Sam Dodrill <shadowh511@gmail.com>
+ * (C) 2014 Christine Dodrill <shadowh511@gmail.com>
  * (C) 2003-2014 Anope Team
  * Contact us at team@anope.org
  *

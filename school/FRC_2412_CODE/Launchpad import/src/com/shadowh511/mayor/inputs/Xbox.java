@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Joystick;
 
 /**
  *
- * @author Sam Dodrill
+ * @author Christine Dodrill
  */
 public class Xbox {
 

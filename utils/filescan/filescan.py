@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 """
-Copyright (c) 2013 Sam Dodrill                                               
+Copyright (c) 2013 Christine Dodrill                                               
                                                                              
 This software is provided 'as-is', without any express or implied            
 warranty. In no event will the authors be held liable for any damages        

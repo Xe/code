@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # starts and stops filescan
-# Sam Dodrill 2013-08-21
+# Christine Dodrill 2013-08-21
 
 ### BEGIN INIT INFO
 # Provides:          filescan

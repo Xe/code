@@ -1,5 +1,5 @@
-# Contributor: Sam Dodrill <shadow.h511@gmail.com>
-# Maintainer: Sam Dodrill <shadow.h511@gmail.com>
+# Contributor: Christine Dodrill <shadow.h511@gmail.com>
+# Maintainer: Christine Dodrill <shadow.h511@gmail.com>
 pkgname=cheat
 pkgver=`date -u +%Y%m%d`
 pkgrel=1

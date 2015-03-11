@@ -1,6 +1,6 @@
 ##CREDITS
 
- - Sam Dodrill (Quakenet: Twi)
+ - Christine Dodrill (Quakenet: Twi)
  - Jessica Williams (Quakenet: Heartmender)
  - \#tlponies on Quakenet
   - The beta testers and general botspam wizards:

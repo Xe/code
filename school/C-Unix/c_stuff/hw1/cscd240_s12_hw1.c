@@ -3,7 +3,7 @@
 #include <string.h>
 
 /*
- * Sam Dodrill
+ * Christine Dodrill
  * CSCD 240
  * /dev/null is a bad input file
  */

@@ -1,5 +1,5 @@
-# Contributor: Sam Dodrill <shadowh511@gmail.com>
-# Maintainer: Sam Dodrill <shadowh511@gmail.com>
+# Contributor: Christine Dodrill <shadowh511@gmail.com>
+# Maintainer: Christine Dodrill <shadowh511@gmail.com>
 pkgname=py-virtualenv
 pkgver=1.10.1
 pkgrel=0

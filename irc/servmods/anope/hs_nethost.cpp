@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 Sam Dodrill <shadowh511@gmail.com>
+ * Copyright 2014 Christine Dodrill <shadowh511@gmail.com>
  *
  * You may use this module as long as you follow the terms of the WTFPL.
  */

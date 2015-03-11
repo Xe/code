@@ -1,7 +1,7 @@
 #!/usr/bin/luajit
 
 --[[
-Copyright Sam Dodrill 2014
+Copyright Christine Dodrill 2014
 
 proxyd is a program for proxying easier
 --]]
