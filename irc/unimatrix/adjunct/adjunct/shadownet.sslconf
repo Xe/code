@@ -1,0 +1,13 @@
+[ req ] 
+default_bits = 4096
+distinguished_name = req_distinguished_name
+prompt = no
+
+[ req_distinguished_name ]
+C = US
+ST = Virginia
+L = Ashburn
+O = ShadowNET IRC
+OU = ircd ssl cert
+CN = *.yolo-swag.com
+emailAddress = staff@yolo-swag.com

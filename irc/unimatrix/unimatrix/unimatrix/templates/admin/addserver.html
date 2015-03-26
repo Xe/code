@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Add a Server
+{% endblock %}
+
+{% block body %}
+<form method="POST" action="/admin/addserver">
+{{ form.csrf_token }}
+{{ form.name.label }} {{ form.name(size=50) }} <br />
+{{ form.description.label }} {{ form.description(size=50) }} <br />
+{{ form.ipaddress.label }} {{ form.ipaddress(size=50) }} <br/>
+<input type="submit" value="Go">
+</form>
+{% endblock %}
