@@ -1,0 +1,10 @@
+settings = {
+	nick = "Test",
+	user = "user",
+	real = "An Example User",
+	host = "irc.example.com",
+	port = 6667
+}
+
+status(settings.real)
+

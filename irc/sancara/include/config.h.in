@@ -1,0 +1,6 @@
+// the configured options and settings for sancara
+#define sancara_VERSION_MAJOR @sancara_VERSION_MAJOR@
+#define sancara_VERSION_MINOR @sancara_VERSION_MINOR@
+
+
+

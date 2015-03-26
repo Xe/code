@@ -1,0 +1,17 @@
+IRC Client Structure Hierarchy
+|- Networks
+|  |- Socket
+   |  `- Buffer
+|  |- Status
+|  |- Clients
+|  |- Channels
+|  |  |- Channel Clients
+|  |  |  |- Client pointer
+|  |  |  `- Channel status
+|  |  |- Topic
+|  |  `- Metadata
+|  `- PM
+|     ` Client
+|- Scripts
+|- Settings
+`- User Info

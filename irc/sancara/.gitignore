@@ -1,0 +1,37 @@
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# CMake files
+cmake_install.cmake
+CMakeFiles/
+CMakeCache.txt
+Makefile
+
+# Libraries
+*.lib
+*.a
+
+include/config.h
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Configuration
+config.lua
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+irc
+tinybot
+sancara
