@@ -1,0 +1,6 @@
+name: "panel"
+
+dependencies:
+ - moonscript
+ - lapis
+ - require
