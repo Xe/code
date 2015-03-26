@@ -1,0 +1,33 @@
+# This file must have everything inside the `environments` group
+environments:
+  - name: test
+    description: >
+      A test environment made as a one-off
+    tags: test,please-ignore
+    kind: t2.micro
+    vpc: vpc-be12a0db
+    subnet:
+      - subnet-cf0fdcb8
+    zone:
+      - us-east-1a
+    az: us-east-1a
+    root: 15
+  - name: deis
+    description: >
+      A parent with children
+    nodes:
+      - name: child
+        description: >
+          Child subcluster 1
+        tags: test,please-ignore
+        kind: t2.micro
+        vpc: vpc-be12a0db
+        subnet:
+          - subnet-cf0fdcb8
+        zone:
+          - us-east-1a
+        az: us-east-1a
+        root: 15
+
+override:
+  etcd: https://discovery.etcd.io/b8baedc2e87105ed9ea622ee2c0095a8

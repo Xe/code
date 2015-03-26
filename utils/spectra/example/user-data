@@ -1,0 +1,83 @@
+#cloud-config
+---
+coreos:
+  etcd:
+    addr: $private_ipv4:4001
+    peer-addr: $private_ipv4:7001
+    # give etcd more time if it's under heavy load - prevent leader election thrashing
+    peer-election-timeout: 2000
+    # heartbeat interval should ideally be 1/4 or 1/5 of peer election timeout
+    peer-heartbeat-interval: 500
+  fleet:
+    # We have to set the public_ip here so this works on Vagrant -- otherwise, Vagrant VMs
+    # will all publish the same private IP. This is harmless for cloud providers.
+    public-ip: $private_ipv4
+    # allow etcd to slow down at times
+    etcd_request_timeout: 3
+  units:
+  - name: etcd.service
+    command: start
+  - name: fleet.service
+    command: start
+  - name: fleet.socket
+    command: start
+    content: |
+      [Socket]
+      # Talk to the API over a Unix domain socket (default)
+      ListenStream=/var/run/fleet.sock
+      Service=fleet.service
+
+      [Install]
+      WantedBy=sockets.target
+  - name: stop-update-engine.service
+    command: start
+    content: |
+      [Unit]
+      Description=stop update-engine
+
+      [Service]
+      Type=oneshot
+      ExecStart=/usr/bin/systemctl stop update-engine.service
+      ExecStartPost=/usr/bin/systemctl mask update-engine.service
+write_files:
+  - path: /etc/deis-release
+    content: |
+      DEIS_RELEASE=latest
+  - path: /etc/motd
+    content: " \e[31m* *    \e[34m*   \e[32m*****    \e[39mddddd   eeeeeee iiiiiii   ssss\n\e[31m*   *  \e[34m* *  \e[32m*   *     \e[39md   d   e    e    i     s    s\n \e[31m* *  \e[34m***** \e[32m*****     \e[39md    d  e         i    s\n\e[32m*****  \e[31m* *    \e[34m*       \e[39md     d e         i     s\n\e[32m*   * \e[31m*   *  \e[34m* *      \e[39md     d eee       i      sss\n\e[32m*****  \e[31m* *  \e[34m*****     \e[39md     d e         i         s\n  \e[34m*   \e[32m*****  \e[31m* *      \e[39md    d  e         i          s\n \e[34m* *  \e[32m*   * \e[31m*   *     \e[39md   d   e    e    i    s    s\n\e[34m***** \e[32m*****  \e[31m* *     \e[39mddddd   eeeeeee iiiiiii  ssss\n\n\e[39mWelcome to Deis\t\t\tPowered by Core\e[38;5;45mO\e[38;5;206mS\e[39m\n"
+  - path: /etc/profile.d/nse-function.sh
+    permissions: '0755'
+    content: |
+      function nse() {
+        sudo nsenter --pid --uts --mount --ipc --net --target $(docker inspect --format="{{ .State.Pid }}" $1)
+      }
+  - path: /run/deis/bin/get_image
+    permissions: '0755'
+    content: |
+      #!/bin/bash
+      # usage: get_image <component_path>
+      IMAGE=`etcdctl get $1/image 2>/dev/null`
+
+      # if no image was set in etcd, we use the default plus the release string
+      if [ $? -ne 0 ]; then
+        RELEASE=`etcdctl get /deis/release 2>/dev/null`
+
+        # if no release was set in etcd, use the default provisioned with the server
+        if [ $? -ne 0 ]; then
+          source /etc/deis-release
+          RELEASE=$DEIS_RELEASE
+        fi
+
+        IMAGE=$1:$RELEASE
+      fi
+
+      # remove leading slash
+      echo ${IMAGE#/}
+
+users:
+  - name: xe
+    gecos: Xe
+    groups:
+      - sudo
+      - docker
+    coreos-ssh-import-github: Xe
