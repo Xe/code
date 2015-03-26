@@ -1,0 +1,4 @@
+build/atom-shell
+build/node_modules
+duta/node_modules
+duta/bower_components

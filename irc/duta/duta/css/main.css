@@ -1,0 +1,22 @@
+.starter-template {
+  text-align: center;
+  margin: 30px 220px;
+}
+
+.sidebar {
+  position: absolute;
+  width: 200px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border: 1px solid #111;
+}
+
+.sidebar-right {
+  position: absolute;
+  width: 200px;
+  height: 100%;
+  top: 0;
+  right: 0;
+  border: 1px solid #111;
+}

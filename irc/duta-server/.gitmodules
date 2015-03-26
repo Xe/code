@@ -1,0 +1,3 @@
+[submodule "prototype/src/niilib"]
+	path = prototype/src/niilib
+	url = https://github.com/Xe/niilib.git
