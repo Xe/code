@@ -1,0 +1,66 @@
+# Copyright (C) 2014 Christine Dodrill <xena@yolo-swag.com> All rights reserved.
+#
+# This software is provided 'as-is', without any express or implied
+# warranty. In no event will the authors be held liable for any damages
+# arising from the use of this software.
+#
+# Permission is granted to anyone to use this software for any purpose,
+# including commercial applications, and to alter it and redistribute it
+# freely, subject to the following restrictions:
+#
+# 1. The origin of this software must not be misrepresented; you must not
+#    claim that you wrote the original software. If you use this software
+#    in a product, an acknowledgment in the product documentation would be
+#    appreciated but is not required.
+#
+# 2. Altered source versions must be plainly marked as such, and must not be
+#    misrepresented as being the original software.
+#
+# 3. This notice may not be removed or altered from any source
+#    distribution.
+#
+
+# Specify things about the distribution you are running
+
+DISTRO=alpine
+VERSION=v3.0
+ARCH=x86
+
+# Specify what packages are needed
+
+NEEDPACKS="tor"
+
+# A description of the chroot to be added to its /etc/motd
+
+DESC="Tor Hidden Service"
+
+# Enable SSHD? What port?
+
+USESSH=FALSE
+SSHD_PORT=42069
+
+# Install desitnation
+
+DESTDIR="/var/lib/chroot-magic/tor"
+
+# Set up the chroot, install needed packages, seed sshd config
+
+SetupChroot
+
+
+# Add a folder to the chroot, should be done before any files are added
+
+MakeDir /etc/tor
+MakeDir /var/lib/tor/hidden_service
+
+# Add files to the chroot, useful for configs or data files
+
+AddFile torrc /etc/tor/torrc
+AddFile private_key /var/lib/tor/hidden_service/private_key
+AddFile hostname /var/lib/tor/hidden_service/hostname
+
+# Command to run in the chroot on startup. Will be added to the system as
+# a boot time init service.
+
+StartCMD tor -f /etc/tor/torrc
+
