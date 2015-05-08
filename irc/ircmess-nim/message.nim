@@ -52,8 +52,8 @@ when isMainModule:
     echo "ok 1 - compare source of messages"
   except:
     echo "not ok 1 - compare source of messages"
-    echo "# " & $ m1.source
-    echo "# " & $ m2.source
+    echo "  " & $ m1.source
+    echo "  " & $ m2.source
 
   try:
     assert(m1.verb.cmp("FOO") == 0)
@@ -61,8 +61,8 @@ when isMainModule:
     echo "ok 2 - compare verb of messages"
   except:
     echo "not ok 2 - compare verb of messages"
-    echo "# " & $ m1.verb
-    echo "# " & $ m2.verb
+    echo "  " & $ m1.verb
+    echo "  " & $ m2.verb
 
   try:
     assert(m1.args[0].cmp("bar") == 0)
@@ -71,7 +71,7 @@ when isMainModule:
     echo "ok 3 - message with random colon in it"
   except:
     echo "not ok 3 - message with random colon in it"
-    echo "# " & $ m1.args
+    echo "  " & $ m1.args
 
   try:
     assert(m2.args[0].cmp("bar") == 0)
@@ -83,4 +83,4 @@ when isMainModule:
     echo "ok 4 - message with many arguments"
   except:
     echo "not ok 4 - message with many arguments"
-    echo "# " & $ m2.args
+    echo "  " & $ m2.args
