@@ -27,6 +27,7 @@ proc parseMessage*(input: string): Message =
     splitline = splitline[1 .. ^1]
 
     if splitline[0][0] == ':':
+      # Only one argument, figure this out and return it
       args = @[splitline[0][1 .. ^1]]
 
       return Message(source: source, verb: verb, args: args)
@@ -45,6 +46,23 @@ proc parseMessage*(input: string): Message =
     args = splitline
 
   return Message(source: source, verb: verb, args: args)
+
+proc `$`*(m: Message): string =
+  ## Show converts a Message to a string format, dictated by RFC 1459
+  var r = ""
+
+  if m.source != "":
+    r = ":" & m.source & " "
+
+  r = r & m.verb & " "
+
+  # append everything but the last argument to this
+  for i in countup(0, len(m.args)-2):
+    r = r & m.args[i] & " "
+
+  r = r & ":" & m.args[(len(m.args)-1)]
+
+  return r
 
 when isMainModule:
   # TODO: write a testing module that pukes out tap
