@@ -12,12 +12,14 @@ while true:
   var m: message.Message
 
   sock.readLine(line)
-  echo(">>> " & line)
 
   m = line.parseMessage()
+  echo ">>> ", m
 
   case m.verb
   of "PING":
+    echo "<<< PONG :" & m.args[0]
     sock.send("PONG :" & m.args[0] & "\r\n")
   of "001":
+    echo "<<< JOIN #niichan"
     sock.send("JOIN #niichan\r\n")
