@@ -21,7 +21,9 @@ proc parseMessage*(input: string): Message =
   else:
     source = ""
     verb = splitline[0]
-    splitline = splitline[1 .. ^0]
+
+    if splitline[1][0] != ':':
+      splitline = splitline[1 .. ^0]
 
   var argstring = splitline.join(" ")
   var extparam = argstring.split(" :")
@@ -40,27 +42,37 @@ proc parseMessage*(input: string): Message =
 
 when isMainModule:
   # TODO: write a testing module that pukes out tap
+  echo "1..5"
+
   var
+    m1: Message
+    m2: Message
+    m3: Message
+
+  try:
     m1 = parseMessage ":hi foo bar baz :this is a longer message :with another colon"
     m2 = parseMessage ":hi foo bar baz this has no swag"
-
-  echo "1..4"
+    m3 = parseMessage "PING :sonatadusk.ponychat.net"
+    echo "ok 1 - all messages could be parsed"
+  except:
+    echo "not ok 1 - all messages could be parsed"
+    echo "  " & getCurrentExceptionMsg()
 
   try:
     assert(m1.source.cmp("hi") == 0)
     assert(m2.source.cmp("hi") == 0)
-    echo "ok 1 - compare source of messages"
+    echo "ok 2 - compare source of messages"
   except:
-    echo "not ok 1 - compare source of messages"
+    echo "not ok 2 - compare source of messages"
     echo "  " & $ m1.source
     echo "  " & $ m2.source
 
   try:
     assert(m1.verb.cmp("FOO") == 0)
     assert(m2.verb.cmp("FOO") == 0)
-    echo "ok 2 - compare verb of messages"
+    echo "ok 3 - compare verb of messages"
   except:
-    echo "not ok 2 - compare verb of messages"
+    echo "not ok 3 - compare verb of messages"
     echo "  " & $ m1.verb
     echo "  " & $ m2.verb
 
@@ -68,9 +80,9 @@ when isMainModule:
     assert(m1.args[0].cmp("bar") == 0)
     assert(m1.args[1].cmp("baz") == 0)
     assert(m1.args[2].cmp("this is a longer message :with another colon") == 0)
-    echo "ok 3 - message with random colon in it"
+    echo "ok 4 - message with random colon in it"
   except:
-    echo "not ok 3 - message with random colon in it"
+    echo "not ok 4 - message with random colon in it"
     echo "  " & $ m1.args
 
   try:
@@ -80,7 +92,7 @@ when isMainModule:
     assert(m2.args[3].cmp("has") == 0)
     assert(m2.args[4].cmp("no") == 0)
     assert(m2.args[5].cmp("swag") == 0)
-    echo "ok 4 - message with many arguments"
+    echo "ok 5 - message with many arguments"
   except:
     echo "not ok 4 - message with many arguments"
     echo "  " & $ m2.args
