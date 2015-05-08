@@ -15,12 +15,13 @@ proc parseMessage*(input: string): Message =
     verb = ""
     args: seq[string]
 
-
+  # parse out the source
   if splitline[0][0] == ':':
     source = splitline[0][1 .. ^1]
     verb = splitline[1].toUpper()
     splitline = splitline[2 .. ^1]
   else:
+    # sourceless message
     source = ""
     verb = splitline[0]
 
@@ -32,9 +33,11 @@ proc parseMessage*(input: string): Message =
 
       return Message(source: source, verb: verb, args: args)
 
+  # Arguments are next
   var argstring = splitline.join(" ")
   var extparam = argstring.split(" :")
 
+  # figure out where the extparam is and append it to the end of the argument list raw
   if extparam.len() > 1:
     var
       dupes = extparam[1 .. ^1]
@@ -43,26 +46,29 @@ proc parseMessage*(input: string): Message =
 
     args = myArgs & ext
   else:
+    # no extparam
     args = splitline
 
-  return Message(source: source, verb: verb, args: args)
+  Message(source: source, verb: verb, args: args)
 
 proc `$`*(m: Message): string =
   ## Show converts a Message to a string format, dictated by RFC 1459
   var r = ""
 
+  # Prepend message source if applicable
+  # :nick!user@host
   if m.source != "":
     r = ":" & m.source & " "
 
+  # Add the message's verb
   r = r & m.verb & " "
 
   # append everything but the last argument to this
   for i in countup(0, len(m.args)-2):
     r = r & m.args[i] & " "
 
-  r = r & ":" & m.args[(len(m.args)-1)]
-
-  return r
+  # last paramater is the extended parameter
+  r & ":" & m.args[(len(m.args)-1)]
 
 when isMainModule:
   # TODO: write a testing module that pukes out tap
