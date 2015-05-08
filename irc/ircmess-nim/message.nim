@@ -9,10 +9,12 @@ type
 proc parseMessage*(input: string): Message =
   ## Takes in a string and returns a Message from it
 
-  var splitline = input.split(' ')
-  var source = ""
-  var verb = ""
-  var args: seq[string]
+  var
+    splitline = input.split(' ')
+    source = ""
+    verb = ""
+    args: seq[string]
+
 
   if splitline[0][0] == ':':
     source = splitline[0][1 .. ^1]
@@ -22,8 +24,12 @@ proc parseMessage*(input: string): Message =
     source = ""
     verb = splitline[0]
 
-    if splitline[1][0] != ':':
-      splitline = splitline[1 .. ^0]
+    splitline = splitline[1 .. ^1]
+
+    if splitline[0][0] == ':':
+      args = @[splitline[0][1 .. ^1]]
+
+      return Message(source: source, verb: verb, args: args)
 
   var argstring = splitline.join(" ")
   var extparam = argstring.split(" :")
@@ -54,6 +60,9 @@ when isMainModule:
     m2 = parseMessage ":hi foo bar baz this has no swag"
     m3 = parseMessage "PING :sonatadusk.ponychat.net"
     echo "ok 1 - all messages could be parsed"
+    echo "  m1: ", m1
+    echo "  m2: ", m2
+    echo "  m3: ", m3
   except:
     echo "not ok 1 - all messages could be parsed"
     echo "  " & getCurrentExceptionMsg()
