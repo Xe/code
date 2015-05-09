@@ -51,7 +51,7 @@ proc parseMessage*(input: string): Message =
 
   Message(source: source, verb: verb, args: args)
 
-proc `$`*(m: Message): string =
+proc show*(m: Message): string =
   ## Show converts a Message to a string format, dictated by RFC 1459
   var r = ""
 
@@ -83,7 +83,7 @@ when isMainModule:
     m1 = parseMessage ":hi foo bar baz :this is a longer message :with another colon"
     m2 = parseMessage ":hi foo bar baz this has no swag"
     m3 = parseMessage "PING :sonatadusk.ponychat.net"
-    echo "ok 1 - all messages could be parsed"
+    echo "ok 2 - all messages could be parsed"
     echo "  m1: ", m1
     echo "  m2: ", m2
     echo "  m3: ", m3
