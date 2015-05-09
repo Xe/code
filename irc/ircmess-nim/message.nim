@@ -51,7 +51,7 @@ proc parseMessage*(input: string): Message =
 
   Message(source: source, verb: verb, args: args)
 
-proc show*(m: Message): string =
+proc `$$`*(m: Message): string =
   ## Show converts a Message to a string format, dictated by RFC 1459
   var r = ""
 
