@@ -14,7 +14,8 @@ while true:
   sock.readLine(line)
 
   m = line.parseMessage()
-  echo ">>> ", m
+  echo ">>> ", $$ m
+  echo "    ",  $ m
 
   case m.verb
   of "PING":
