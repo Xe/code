@@ -1,0 +1,62 @@
+package comm;
+
+option java_outer_classname = "Within.Scylla"; // Haskell package prefix
+
+// Metadata is a key->value pair for message tags.
+message Metadata {
+	required string key   = 1; // Key of the mssage tag
+	required string value = 2; // Value of the message tag
+}
+
+// Flags is an enum representing bitflags for messages.
+enum Flags {
+	None      = 0;
+	OpMod     = 1; // Only seen by chanops
+	Broadcast = 2; // Broadcast this to other servers
+	Override  = 3; // Event skips policy checks
+}
+
+// Event represents an incoming event.
+message Event {
+	required string   source    = 1; // UUID of the source of the message or a server id
+	required string   verb      = 2; // Verb of the Event
+
+	repeated string   arguments = 3; // Arguments of the Event
+	repeated Metadata tags      = 4; // Message tags
+
+	repeated Flags    flags     = 5; // Flags about the Event
+
+	repeated Action   actions   = 6; // List of Actions the Event has gotten previously
+}
+
+// Action represents an outgoing action.
+message Action {
+	required string clientuuid = 1; // the client to send this action to
+	required string source = 2; // Source of the message
+	required string target = 3; // Target of the message
+
+	enum Condition {
+		OpMod = 1;
+		ToOpers = 2;
+		Everyone = 3;
+	}
+
+	optional Condition condition = 4; // Conditions for the message
+
+	required string   verb      = 5; // Message verb
+	repeated string   arguments = 6; // Message arguments
+	repeated Metadata tags      = 7; // Message tags
+	optional bool     broadcast = 8; // Should this message go to all clients?
+}
+
+// Send represents an event being sent to the core.
+message Send {
+	required string uuid   = 1; // UUID of the mechanism
+	repeated Action action = 2;
+}
+
+// Response is the response from a policy server when it recieves an event.
+message Response {
+	required bool continue = 1;
+	repeated Action actions = 2;
+}

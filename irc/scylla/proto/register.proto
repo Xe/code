@@ -1,0 +1,46 @@
+package register;
+
+option java_outer_classname = "Within.Scylla"; // Haskell package prefix
+
+// Register message for registering a child process capabilities.
+message Register {
+	required string uuid     = 1; // The UUID of the connected daemon
+	required Kind   kind     = 2; // What kind the daemon is
+	required string password = 3; // Password passed from the core on invocation
+
+	enum Kind {
+		Mechanism  = 1; // Connection mechanism
+		Policy     = 2; // Policy controller
+		Configurer = 3; // Configuration manager
+		Linker     = 4; // Server linker
+	}
+}
+
+// Controller is the declaring message for a policy controller.
+message Controller {
+	required string uuid = 1; // uuid of the policy controller
+	required string socket = 2; // path to the domain socket
+
+	enum Level {
+		User     = 1; // Highest policy level, this is ran first
+		Extra    = 2; // ircd extensions
+		RFC      = 3; // RFC policies
+		Fallback = 4; // ran after RFC policies as needed
+	}
+
+	message Policy {
+		required string uuid  = 1; // Policy uuid
+		required string verb  = 2; // Verb the policy acts against
+
+		required Level  level = 3; // Level the policy is evaluated in
+	}
+
+	repeated Policy policies = 3;
+}
+
+// Mechanism is a declaring message for a mechanism definition.
+message Mechanism {
+	required string uuid       = 1; // uuid of the mechanism for the socket location
+	required string socket     = 2; // path to the domain socket
+	required bool   serverLink = 3; // Is this a server link?
+}
