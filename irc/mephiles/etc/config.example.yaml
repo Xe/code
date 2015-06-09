@@ -1,0 +1,47 @@
+local:
+  name: mephiles.yolo-swag.com
+  sid: 8HI
+  description: Mephiles test server
+
+network:
+  name: ShadowNET
+  helpchan: "#help"
+  helpurl: "http://example.com/help"
+
+  admin:
+    name: ShadowNET Staff
+    description: ShadowNET administrative staff
+    email: staff@yolo-swag.com
+
+  classes:
+    users:
+      pingtime: 300000000000 # 5 minutes, http://play.golang.org/p/A-uNCgvEMf
+      localclones: 3
+      globalclones: 6
+      sendq: 65536 # 64KB
+
+  authlines:
+    "*@*":
+      class: users
+      flags:
+        - no_tilde
+
+    "*@127.0.0.1":
+      class: users
+      flags:
+        - no_tilde
+        - kline_exempt
+
+  staff:
+    xena:
+      user: "*@*"
+      password: "foobang"
+      vhost: "yolo-swag.com"
+      operstring: "Is a staff member"
+      snomask: "+ZbfkrsuyFc"
+      cryptpassword: false
+
+  ports:
+    - host:
+      port: 6667
+      kind: PLAIN
