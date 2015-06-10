@@ -1,0 +1,10 @@
+containers:
+  shell:
+    setup:
+      - !Alpine 3.1
+      - !Install [go]
+
+commands:
+  sh: !Command
+    container: shell
+    run: sh
