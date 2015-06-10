@@ -1,0 +1,6 @@
+languageCode = "en-us"
+title = "Tetra Docs"
+theme = "hugo-bootswatch"
+
+[params]
+  description = "Documentation for Tetra IRC Services"
