@@ -38,7 +38,7 @@ do_host_cloak_host(const char *inbuf, char *outbuf)
 	char *tptr;
 	uint32_t accum = fnv_hash((const unsigned char*) inbuf, 32);
 
-	strlcpy(outbuf, inbuf, HOSTLEN + 1);
+	strncpy(outbuf, inbuf, HOSTLEN + 1);
 
 	/* pass 1: scramble first section of hostname using base26 
 	 * alphabet toasted against the FNV hash of the string.
@@ -80,7 +80,7 @@ do_host_cloak_ip(const char *inbuf, char *outbuf)
 	int totalcount = 0;
 	int ipv6 = 0;
 
-	strlcpy(outbuf, inbuf, 100 + 1);
+	strncpy(outbuf, inbuf, 100 + 1);
 
 	if (strchr(outbuf, ':'))
 	{

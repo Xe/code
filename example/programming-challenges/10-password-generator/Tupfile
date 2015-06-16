@@ -1,0 +1,6 @@
+include_rules
+.gitignore
+
+: foreach *.c |> !obj |> %B.o
+
+: passgen.o |> !cc |> ../../../bin/passgen

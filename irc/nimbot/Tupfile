@@ -1,0 +1,4 @@
+include_rules
+.gitignore
+
+: bot.nim |> !nim |> ../../bin/nimbot

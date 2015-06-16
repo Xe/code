@@ -1,0 +1,7 @@
+include_rules
+.gitignore
+
+: foreach *.c |> !obj |> %B.o
+
+: cloakhost.o |> !cc |> ../../bin/cloakhost
+: hostcrack.o |> !cc |> ../../bin/hostcrack

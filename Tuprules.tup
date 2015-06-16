@@ -1,0 +1,18 @@
+NIMFLAGS += --nimcache:".nimcache"
+NIMFLAGS += --deadcodeElim:on
+NIMFLAGS += -d:release
+NIMFLAGS += -d:ssl
+NIMFLAGS += -d:threads
+NIMFLAGS += --verbosity:0
+
+GOFLAGS += -g
+GOFLAGS += -O3
+
+CFLAGS += -Wall
+
+!nim = |> ^ Nim: %f -> Binary %o^ nim c $(NIMFLAGS) -o:%o %f && rm -rf .nimcache |>
+!gccgo = |> ^ GCCGo: %f -> Binary %o^ gccgo $(GOFLAGS) -o %o %f |>
+!cc = |> ^ CC: %f -> Binary %o^ gcc $(CFLAGS) -o %o %f |>
+!obj = |> ^ CC: %f -> Binary %o^ gcc $(CFLAGS) -c -o %o %f |>
+!moon = |> ^ Moonscript: %f -> Script %o^ moonc -o %o %f |>
+!luascript = |> ^ Lua script: %f -> Script %o^ echo "#!/usr/bin/lua" >> %o && cat %f >> %o && chmod u+x %o |>

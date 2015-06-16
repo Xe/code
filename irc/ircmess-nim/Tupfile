@@ -1,0 +1,4 @@
+include_rules
+.gitignore
+
+: message.nim |> !nim |> ../../bin/ircmess-nim-test
