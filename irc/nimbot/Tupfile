@@ -1,4 +1,4 @@
 include_rules
 .gitignore
 
-: bot.nim |> !nim |> ../../bin/nimbot
+: bot.nim | ../ircmess-nim/ircmess_test.log |> !nim |> ../../bin/nimbot
