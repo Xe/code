@@ -37,3 +37,5 @@ nosetests.xml
 .pydevproject
 
 derpiloader/images/*
+
+.tup
