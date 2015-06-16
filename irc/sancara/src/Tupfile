@@ -1,9 +1,9 @@
 CFLAGS += -I ../include
 CFLAGS += `pkg-config --cflags lua5.1 2> /dev/null`
-CFLAGS += `pkg-config --cflags luajit`
+CFLAGS += `pkg-config --cflags luajit 2> /dev/null`
 CFLAGS += -lcurses
 CFLAGS += `pkg-config --libs lua5.1 2> /dev/null`
-CFLAGS += `pkg-config --libs luajit`
+CFLAGS += `pkg-config --libs luajit 2> /dev/null`
 
 include_rules
 .gitignore
