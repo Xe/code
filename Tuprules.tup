@@ -9,6 +9,8 @@ GOFLAGS += -g
 GOFLAGS += -O3
 
 CFLAGS += -Wall
+CFLAGS += -O2
+CFLAGS += -g
 
 !nim = |> ^ Nim: %f -> %o^ nim c $(NIMFLAGS) -o:%o %f && rm -rf .nimcache |>
 !gccgo = |> ^ GCCGo: %f -> %o^ gccgo $(GOFLAGS) -o %o %f |>
