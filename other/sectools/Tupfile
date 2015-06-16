@@ -1,0 +1,8 @@
+include_rules
+.gitignore
+
+CFLAGS += -pthread
+
+: ./slowt0r.o |> !cc |> ../../bin/slowt0r
+: ./xer_udp.o |> !cc |> ../../bin/xer_udp
+: ./xerxes.o |> !cc |> ../../bin/xerxes
