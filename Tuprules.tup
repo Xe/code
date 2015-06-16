@@ -14,7 +14,7 @@ CFLAGS += -g
 
 !nim = |> ^ Nim: %f -> %o^ nim c $(NIMFLAGS) -o:%o %f && rm -rf .nimcache |>
 !gccgo = |> ^ GCCGo: %f -> %o^ gccgo $(GOFLAGS) -o %o %f |>
-!cc = |> ^ CC: %f -> %o^ gcc $(CFLAGS) -o %o %f |>
+!cc = |> ^ CC obj: %f -> %o^ gcc $(CFLAGS) -o %o %f $(LDFLAGS) |>
 !obj = |> ^ CC: %f -> %o^ gcc $(CFLAGS) -c -o %o %f $(LDFLAGS) |>
 !moon = |> ^ Moonscript: %f -> %o^ moonc -o %o %f |>
 !luascript = |> ^ Lua script: %f -> %o^ echo "#!/usr/bin/lua" >> %o && cat %f >> %o && chmod u+x %o |>
