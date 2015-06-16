@@ -71,61 +71,58 @@ proc `$$`*(m: Message): string =
   r & ":" & m.args[(len(m.args)-1)]
 
 when isMainModule:
-  # TODO: write a testing module that pukes out tap
-  echo "1..5"
+  import unittest
 
-  var
-    m1: Message
-    m2: Message
-    m3: Message
+  suite "ircmess tests":
+    var
+      m1: Message
+      m2: Message
+      m3: Message
 
-  try:
-    m1 = parseMessage ":hi foo bar baz :this is a longer message :with another colon"
-    m2 = parseMessage ":hi foo bar baz this has no swag"
-    m3 = parseMessage "PING :sonatadusk.ponychat.net"
-    echo "ok 1 - all messages could be parsed"
-    echo "  m1: ", m1
-    echo "  m2: ", m2
-    echo "  m3: ", m3
-  except:
-    echo "not ok 1 - all messages could be parsed"
-    echo "  " & getCurrentExceptionMsg()
+    test "basic message parsing":
+      try:
+        m1 = parseMessage ":hi foo bar baz :this is a longer message :with another colon"
+        m2 = parseMessage ":hi foo bar baz this has no swag"
+        m3 = parseMessage "PING :sonatadusk.ponychat.net"
+      except:
+        fail
+        echo getCurrentExceptionMsg()
 
-  try:
-    assert(m1.source.cmp("hi") == 0)
-    assert(m2.source.cmp("hi") == 0)
-    echo "ok 2 - compare source of messages"
-  except:
-    echo "not ok 2 - compare source of messages"
-    echo "  " & $ m1.source
-    echo "  " & $ m2.source
+    test "source parsing":
+      try:
+        check(m1.source == "hi")
+        check(m2.source == "hi")
+      except:
+        fail
+        echo "  " & $ m1.source
+        echo "  " & $ m2.source
 
-  try:
-    assert(m1.verb.cmp("FOO") == 0)
-    assert(m2.verb.cmp("FOO") == 0)
-    echo "ok 3 - compare verb of messages"
-  except:
-    echo "not ok 3 - compare verb of messages"
-    echo "  " & $ m1.verb
-    echo "  " & $ m2.verb
+    test "verb parsing":
+      try:
+        check(m1.verb.cmp("FOO") == 0)
+        check(m2.verb.cmp("FOO") == 0)
+      except:
+        fail
+        echo "  " & $ m1.verb
+        echo "  " & $ m2.verb
 
-  try:
-    assert(m1.args[0].cmp("bar") == 0)
-    assert(m1.args[1].cmp("baz") == 0)
-    assert(m1.args[2].cmp("this is a longer message :with another colon") == 0)
-    echo "ok 4 - message with random colon in it"
-  except:
-    echo "not ok 4 - message with random colon in it"
-    echo "  " & $ m1.args
+    test "arg parsing with exceptional case":
+      try:
+        check(m1.args[0].cmp("bar") == 0)
+        check(m1.args[1].cmp("baz") == 0)
+        check(m1.args[2].cmp("this is a longer message :with another colon") == 0)
+      except:
+        fail
+        echo "  " & $ m1.args
 
-  try:
-    assert(m2.args[0].cmp("bar") == 0)
-    assert(m2.args[1].cmp("baz") == 0)
-    assert(m2.args[2].cmp("this") == 0)
-    assert(m2.args[3].cmp("has") == 0)
-    assert(m2.args[4].cmp("no") == 0)
-    assert(m2.args[5].cmp("swag") == 0)
-    echo "ok 5 - message with many arguments"
-  except:
-    echo "not ok 4 - message with many arguments"
-    echo "  " & $ m2.args
+    test "general arg parsing":
+      try:
+        assert(m2.args[0].cmp("bar") == 0)
+        assert(m2.args[1].cmp("baz") == 0)
+        assert(m2.args[2].cmp("this") == 0)
+        assert(m2.args[3].cmp("has") == 0)
+        assert(m2.args[4].cmp("no") == 0)
+        assert(m2.args[5].cmp("swag") == 0)
+      except:
+        fail
+        echo "  " & $ m2.args

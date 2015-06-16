@@ -2,4 +2,4 @@ include_rules
 .gitignore
 
 : message.nim |> !nim |> ../../bin/ircmess-nim-test
-: ../../bin/ircmess-nim-test |> %f > %o |> ircmess_test.log
+: ../../bin/ircmess-nim-test |> %f | tee %o |> ircmess_test.log
