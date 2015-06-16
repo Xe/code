@@ -1,10 +1,9 @@
-include_rules
-.gitignore
-
 CFLAGS += -I ../include
 CFLAGS += `pkg-config --cflags lua5.1`
 CFLAGS += -lcurses
 CFLAGS += `pkg-config --libs lua5.1`
 
-: foreach *.c |> !obj |> %B.o
+include_rules
+.gitignore
+
 : *.o |> !cc |> ../../../bin/sancara

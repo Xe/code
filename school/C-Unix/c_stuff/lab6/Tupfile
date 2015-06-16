@@ -1,0 +1,4 @@
+include_rules
+.gitignore
+
+: *.o |> !cc |> ../../../../bin/cscd240_s12_lab6

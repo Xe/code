@@ -1,5 +1,4 @@
 include_rules
 .gitignore
 
-: foreach *.c |> !obj |> %B.o
 : otp.o |> !cc |> ../../bin/otp

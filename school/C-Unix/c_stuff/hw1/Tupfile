@@ -1,0 +1,4 @@
+include_rules
+.gitignore
+
+: ./cscd240_s12_hw1.o |> !cc |> ../../../../bin/cscd240_s12_hw1

@@ -1,8 +1,6 @@
 include_rules
 .gitignore
 
-: foreach *.c |> !obj |> %B.o
-
 : maze.o game.o |> !cc |> ../../bin/maze
 : music.o |> !cc |> ../../bin/music
 : |> zip %o *.c *.txt Makefile *.h |> dodrillshw2.zip

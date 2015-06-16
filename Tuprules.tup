@@ -16,3 +16,7 @@ CFLAGS += -Wall
 !obj = |> ^ CC: %f -> Binary %o^ gcc $(CFLAGS) -c -o %o %f |>
 !moon = |> ^ Moonscript: %f -> Script %o^ moonc -o %o %f |>
 !luascript = |> ^ Lua script: %f -> Script %o^ echo "#!/usr/bin/lua" >> %o && cat %f >> %o && chmod u+x %o |>
+
+# foreach rules
+: foreach *.c |> !obj |> %B.o
+: foreach *.moon |> !moon |> %B.lua
