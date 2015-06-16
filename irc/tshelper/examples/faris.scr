@@ -1,0 +1,7 @@
+# A sample script showing how to create a channel logging bot.
+# ./tshelper -s examples/faris.scr <ircserver> <port>
+NICK Faris
+USER logbot 1 1 :Channel Logging Bot
+
+JOIN #twilight_zone
+PRIVMSG #twilight_zone :Faris reporting, ready to log.

@@ -1,0 +1,6 @@
+# An example of gathering information from a web server.  CTRL-E
+# is used to force a blank line (\r\n) to be sent to the server.
+# ./tshelper -s examples/webcheck.scr ircd.botbay.net 80
+HEAD /services.html HTTP/1.0
+Host: ircd.botbay.net
+

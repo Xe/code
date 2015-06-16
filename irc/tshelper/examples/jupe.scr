@@ -1,0 +1,12 @@
+# A sample script showing a connection as a server onto a
+# Hybrid 7/ircd-ratbox network.  This shows the use of CTRL-K
+# characters to generate a timestamp.
+# ./tshelper -s examples/faris.scr <ircserver> <port>
+PASS motpasse :TS
+CAPAB QS
+SERVER jupe.XXXX.net 1 :(H) Jupe Server (tshelper)
+SVINFO 5 3 0 :
+
+NICK Faris 1  +io faris faris.net jupe.XXXX.net :Faris
+:jupe.XXXX.net SJOIN  #twilight_zone 0 :@Faris
+:Faris PRIVMSG #twilight_zone :Faris reporting as a server, script done!
