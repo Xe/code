@@ -85,44 +85,26 @@ when isMainModule:
         m2 = parseMessage ":hi foo bar baz this has no swag"
         m3 = parseMessage "PING :sonatadusk.ponychat.net"
       except:
-        fail
         echo getCurrentExceptionMsg()
+        fail
 
     test "source parsing":
-      try:
-        check(m1.source == "hi")
-        check(m2.source == "hi")
-      except:
-        fail
-        echo "  " & $ m1.source
-        echo "  " & $ m2.source
+      check(m1.source == "hi")
+      check(m2.source == "hi")
 
     test "verb parsing":
-      try:
-        check(m1.verb.cmp("FOO") == 0)
-        check(m2.verb.cmp("FOO") == 0)
-      except:
-        fail
-        echo "  " & $ m1.verb
-        echo "  " & $ m2.verb
+      check(m1.verb.cmp("FOO") == 0)
+      check(m2.verb.cmp("FOO") == 0)
 
     test "arg parsing with exceptional case":
-      try:
-        check(m1.args[0].cmp("bar") == 0)
-        check(m1.args[1].cmp("baz") == 0)
-        check(m1.args[2].cmp("this is a longer message :with another colon") == 0)
-      except:
-        fail
-        echo "  " & $ m1.args
+      check(m1.args[0].cmp("bar") == 0)
+      check(m1.args[1].cmp("baz") == 0)
+      check(m1.args[2].cmp("this is a longer message :with another colon") == 0)
 
     test "general arg parsing":
-      try:
-        assert(m2.args[0].cmp("bar") == 0)
-        assert(m2.args[1].cmp("baz") == 0)
-        assert(m2.args[2].cmp("this") == 0)
-        assert(m2.args[3].cmp("has") == 0)
-        assert(m2.args[4].cmp("no") == 0)
-        assert(m2.args[5].cmp("swag") == 0)
-      except:
-        fail
-        echo "  " & $ m2.args
+      check(m2.args[0].cmp("bar") == 0)
+      check(m2.args[1].cmp("baz") == 0)
+      check(m2.args[2].cmp("this") == 0)
+      check(m2.args[3].cmp("has") == 0)
+      check(m2.args[4].cmp("no") == 0)
+      check(m2.args[5].cmp("swag") == 0)
