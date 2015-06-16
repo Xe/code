@@ -1,0 +1,4 @@
+include_rules
+.gitignore
+
+: ./errco.o |> !cc |> ../../bin/errco

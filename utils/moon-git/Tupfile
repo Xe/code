@@ -1,0 +1,4 @@
+include_rules
+.gitignore
+
+: git2markdown.lua |> !luascript |> ../../bin/moon-git

@@ -1,0 +1,6 @@
+include_rules
+.gitignore
+
+: ./smallfuck.o |> !cc |> ../../bin/smallfuck
+: ../../bin/smallfuck |> %f ./test.sf > %o |> ./test.sf.out
+: ../../bin/smallfuck |> %f ./test2.sf > %o |> ./test2.sf.out
