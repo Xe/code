@@ -1,0 +1,7 @@
+CFLAGS += -I /usr/include/ncursesw
+LDFLAGS += -lncurses
+
+include_rules
+.gitignore
+
+: ./netline.o |> !cc |> ../../bin/netline
