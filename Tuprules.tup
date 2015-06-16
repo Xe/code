@@ -13,6 +13,7 @@ CFLAGS += -O2
 CFLAGS += -g
 
 !nim = |> ^ Nim: %f -> %o^ nim c $(NIMFLAGS) -o:%o %f && rm -rf .nimcache |>
+!gccgoobj = |> ^ GCCGo obj: %f -> %o^ gccgo $(GOFLAGS) -c -o %o %f |>
 !gccgo = |> ^ GCCGo: %f -> %o^ gccgo $(GOFLAGS) -o %o %f |>
 !cc = |> ^ CC obj: %f -> %o^ gcc $(CFLAGS) -o %o %f $(LDFLAGS) |>
 !obj = |> ^ CC: %f -> %o^ gcc $(CFLAGS) -c -o %o %f $(LDFLAGS) |>
