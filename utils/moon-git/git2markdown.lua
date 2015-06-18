@@ -22,43 +22,39 @@ function string:split(sep)
   return fields
 end
 
-types = "feat(;Features:fix(;Fixes:docs(;Documentation:chore(;Maintenance"
-baseurl = "http://github.com/deis/deis"
-
 function usage()
-  print("Usage: " .. arg[0] .. " <from> [to]")
-  print("Current types and baseurl settings:\n")
-  print("    types: " .. types)
-  print("    baseurl: " .. baseurl)
-  print("override these with --baseurl= and --types=")
+  print("Usage: " .. arg[0] .. " <base URL> <old tag> <new tag>")
 end
 
-function retrieve(kind, from, to)
+function retrieve(baseurl, from, to)
   local gitoutput
 
-  commits = os.capture("git --no-pager log --oneline --no-merges --oneline --format=\"%h %H %s\t\" --grep=\""..kind.."\" \""..from.."\"..\""..to.."\"")
+  commits = os.capture("git --no-pager log --oneline --no-merges --oneline --format=\"%h %H %s\t\" \""..from.."\"..\""..to.."\"")
   commits = string.split(commits, "\t")
 
+  print("| Message | Link |")
+  print("|:--- |:--- |")
+
   for i, commit in pairs(commits) do
-    print(commit)
     commit = string.split(commit, " ")
-    local subsystem = string.split(commit[3], "%(")[2]
-    subsystem = string.split(subsystem, ")")[1]
 
-    local message = string.gsub(commit[3], "%b()+", "")
-    print(message)
-    message = string.sub(message, 2)
-    print(message)
+    if commit[1] == "" then
+      table.remove(commit, 1)
+    end
 
-    local link = baseurl.."/commit/"..commit[2]
-    print(link)
+    local shorthash = table.remove(commit, 1)
+    local longhash = table.remove(commit, 1)
+    local message = table.concat(commit, " ")
+
+    local link = "[`"..shorthash.."`]("..baseurl.."/commit/"..longhash..")"
+
+    print("| " .. message .. " | " .. link .. " |")
   end
 end
 
-if #arg < 1 then
-  print("Need a tag to compare against")
+if #arg < 3 then
   usage()
   os.exit(1)
 end
 
-retrieve("feat(", "v0.9.0", "HEAD")
+retrieve(arg[1], arg[2], arg[3])
