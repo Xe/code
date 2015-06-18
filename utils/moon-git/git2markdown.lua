@@ -32,6 +32,10 @@ function retrieve(baseurl, from, to)
   commits = os.capture("git --no-pager log --oneline --no-merges --oneline --format=\"%h %H %s\t\" \""..from.."\"..\""..to.."\"")
   commits = string.split(commits, "\t")
 
+  print("# Differences between `" .. from .. "` and `" .. to .. "`")
+
+  print("for " .. baseurl.."\n")
+
   print("| Message | Link |")
   print("|:--- |:--- |")
 
