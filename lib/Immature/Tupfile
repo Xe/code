@@ -1,0 +1,4 @@
+include_rules
+.gitignore
+
+: |> python immature.py | tee %o |> ./immature-test.txt
