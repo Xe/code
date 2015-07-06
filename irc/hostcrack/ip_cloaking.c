@@ -17,16 +17,16 @@
 uint32_t
 fnv_hash(const unsigned char *s, int bits)
 {
-        uint32_t h = FNV1_32_INIT;
+	uint32_t h = FNV1_32_INIT;
 
-        while (*s)
-        {
-                h ^= *s++;
-                h += (h<<1) + (h<<4) + (h<<7) + (h << 8) + (h << 24);
-        }
-        if (bits < 32)
-                h = ((h >> bits) ^ h) & ((1<<bits)-1);
-        return h;
+	while (*s)
+	{
+		h ^= *s++;
+		h += (h<<1) + (h<<4) + (h<<7) + (h << 8) + (h << 24);
+	}
+	if (bits < 32)
+		h = ((h >> bits) ^ h) & ((1<<bits)-1);
+	return h;
 }
 
 static void
@@ -40,7 +40,7 @@ do_host_cloak_ip(const char *inbuf, char *outbuf)
 	int totalcount = 0;
 	int ipv6 = 0;
 
-	strlcpy(outbuf, inbuf, 100 + 1);
+	strncpy(outbuf, inbuf, 100 + 1);
 
 	if (strchr(outbuf, ':'))
 	{
@@ -93,5 +93,7 @@ int main (int argc, char ** argv) {
 	do_host_cloak_ip(argv[1], ipout);
 
 	printf("[*] Cloaked IP: %s\n", ipout);
+
+	return 0;
 }
 

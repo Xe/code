@@ -3,3 +3,4 @@ include_rules
 
 : cloakhost.o |> !cc |> ../../bin/cloakhost
 : hostcrack.o |> !cc |> ../../bin/hostcrack
+: ip_cloaking.o |> !cc |> ../../bin/ip_cloaking
