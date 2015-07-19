@@ -1,4 +1,0 @@
-include_rules
-.gitignore
-
-: bot.hs |> ghc %f && rm *.hi *.o && mv %B %o |> ../../bin/tutbot
