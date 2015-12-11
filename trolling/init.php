@@ -5,11 +5,8 @@
  */
 
 function sig_handler($signo) {
-	switch($signo) {
-	case SIGCHLD:
-		$status = null;
-		pcntl_waitpid(-1, $status);
-	}
+	$status = null;
+	pcntl_waitpid(-1, $status);
 }
 
 pcntl_signal(SIGCHLD, 'sig_handler');
