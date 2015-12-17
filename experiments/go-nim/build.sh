@@ -3,4 +3,6 @@
 set -x
 
 go build -buildmode=c-shared -o libsum.so add.go
-nim c -r test.nim
+gcc -c -Wall -Werror -fPIC ./libcsum.c
+gcc -shared -o libcsum.so libcsum.o
+nim c -d:release -r test.nim
