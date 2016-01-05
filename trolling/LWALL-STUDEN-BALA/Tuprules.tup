@@ -1,0 +1,5 @@
+CFLAGS += -Wall
+CFLAGS += -Werror
+
+!cc = |> gcc $(CFLAGS) -o %o %f |>
+!obj = |> gcc $(CFLAGS) -c -o %o %f |>
