@@ -1,0 +1,7 @@
+.gitignore
+include_rules
+
+: |> yes | nimble install jester > %o |> ./output/nimble-jester.log
+: |> yes | nimble install parsetoml > %o |> ./output/nimble-parsetoml.log
+
+: niichan.nim | ./output/nimble-parsetoml.log ./output/nimble-jester.log |> !nim |> ./bin/niichan
