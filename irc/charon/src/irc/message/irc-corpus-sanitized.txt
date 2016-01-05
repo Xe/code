@@ -1,0 +1,7 @@
+@aaa=bbb;ccc;example.com/ddd=eee :nick!ident@host.com PRIVMSG me :Hello
+:adagiodazzle.ponychat.net NOTICE * :*** Notice -- Client connecting: pony_4982 (pony_4982@ip-removed) [ip-removed] {?} [qwebirc]
+:MrBen!MrBen@To.The.Grindstone PRIVMSG #CinemaQuestria :\x03\x038,1\x02\x02Rarity, your Granny Smith is showing.
+:duperghoul!foorhgvdbm@j73.088.58.71.dynamic.ip.windstream.net PRIVMSG #CinemaQuestria :pft,that accent!! Better than mine, and I'm in Texas!
+PING irc.canternet.org
+:chrysalis.canternet.org PONG chrysalis.canternet.org :irc.canternet.org
+:Alissa!AlissaSqua@lightning.bouncer.ml PRIVMSG #coders :idfk much about vulnerabilities except for the n2p one doing something with SSL

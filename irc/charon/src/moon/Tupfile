@@ -1,0 +1,3 @@
+.gitignore
+
+: ./charon/*.lua |> busted -o TAP | tee %o |> test.log
