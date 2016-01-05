@@ -1,0 +1,23 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/jinzhu/gorm",
+			"repository": "https://github.com/jinzhu/gorm",
+			"revision": "d75612b86fc0bf9ec921b98ac275fa444d64cb16",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/lib/pq",
+			"repository": "https://github.com/lib/pq",
+			"revision": "a8d8d01c4f91602f876bf5aa210274e8203a6b45",
+			"branch": "master"
+		},
+		{
+			"importpath": "gopkg.in/yaml.v2",
+			"repository": "https://gopkg.in/yaml.v2",
+			"revision": "c1cd2254a6dd314c9d73c338c12688c9325d85c6",
+			"branch": "v2"
+		}
+	]
+}
