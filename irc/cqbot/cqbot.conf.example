@@ -1,0 +1,11 @@
+[server]
+port = 6667
+host = 172.17.0.63
+
+[bot]
+nick = CinemaQuestria
+user = CQBot
+gecos = CQ Bot Beta!
+channel = test
+nspass = yoloswag420
+prefix = !
