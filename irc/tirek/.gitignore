@@ -1,0 +1,138 @@
+# Created by https://www.gitignore.io/api/c++,python
+
+### C++ ###
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+*.log
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Nim
+nimcache/
+
+# Autotools
+compile
+confdefs.h
+config.log
+config.status
+config.guess
+config.sub
+configure
+depcomp
+libtool
+ltmain.sh
+missing
+setup.h.in
+autom4te.cache/
+include/config.h
+include/config.h.in
+include/config.h.in~
+aclocal.m4
+install-sh
+Makefile
+Makefile.in
+src/.deps/
+src/Makefile
+src/Makefile.in
+src/ircd
+
+# Libratbox
+.dirstamp
+libratbox/src/.libs/libratbox.ver
+libratbox/src/version.c.last
+libratbox/include/libratbox_config.h.in
+libratbox/include/libratbox_config.h.in~
+*.Plo
+libratbox/include/libratbox_config.h
+libratbox/include/librb-config.h
+libratbox/include/stamp-h1
+libratbox/libratbox.pc
+libratbox/libtool
+libratbox/m4/libtool.m4
+libratbox/m4/lt*
+libratbox/src/version.c
+libratbox/tools/*
