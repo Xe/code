@@ -1,0 +1,21 @@
+connection:
+    server: irc.synirc.net
+    port: 6667
+    nick: buttbot__
+    username: buttbot
+    name: hello I am a new buttbot
+    channels: ['#buttbot']
+settings:
+    cmd_prefix: '!'
+    meme:       butt
+    set_meme:   Yes
+    changenick: Yes
+    debug:      Yes
+    invite:     Yes
+    reload:     Yes # you probably don't want to change this.
+    pass:       unconfigured
+    friends:    { tef: 1 }
+    enemies:    {}
+    frequency:
+         friend: 37
+         normal: 51
