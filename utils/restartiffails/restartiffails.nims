@@ -1,1 +1,3 @@
 --define:ssl
+--define:release
+--deadCodeElim:on
