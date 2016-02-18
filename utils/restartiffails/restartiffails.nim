@@ -2,7 +2,7 @@ import httpclient, osproc
 
 when isMainModule:
   try:
-    discard getContent "https://xena.greedo.xeserv.us"
+    discard getContent "https://twtxtlist.cf"
     echo "Caddy is okay"
 
   except:
