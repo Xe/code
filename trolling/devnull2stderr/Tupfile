@@ -1,0 +1,1 @@
+: open_override.c |> gcc -shared -fPIC %f -o %o -ldl |> %B.so
