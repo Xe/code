@@ -1,8 +1,6 @@
 .gitignore
 include_rules
 
-: foreach *.c |> !obj |> %B.o
-
 : cat.o |> !cc |> ../bin/cat
 : yes.o |> !cc |> ../bin/yes
 : cd.o |> !cc |> ../bin/cd

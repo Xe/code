@@ -1,2 +1,0 @@
-: *.c |> gcc -shared -fPIC %f -o %o -ldl |> %B.so
-: *.hs |> ghc %f -o %o |> %B

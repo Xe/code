@@ -1,4 +1,0 @@
-.gitignore
-include_rules
-
-: provisiondb.nim |> !nim |> ../bin/provisiondb

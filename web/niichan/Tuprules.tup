@@ -1,8 +1,0 @@
-NIMFLAGS += --nimcache:".nimcache"
-NIMFLAGS += --deadcodeElim:on
-NIMFLAGS += -d:release
-NIMFLAGS += -d:ssl
-NIMFLAGS += -d:threads
-NIMFLAGS += --verbosity:0
-
-!nim = |> ^ Nim: %f -> %o^ nim c $(NIMFLAGS) -o:%o %f && rm -rf .nimcache |>
