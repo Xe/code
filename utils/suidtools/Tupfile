@@ -1,0 +1,4 @@
+include_rules
+.gitignore
+
+: ./restart-nginx.o |> !cc |> ../../bin/restart-ngnix
