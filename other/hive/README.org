@@ -1,0 +1,88 @@
+Hive, a microservices platform
+
+Modern backends are highly sophisticated, increasingly complicated and can
+become unmanageable for newer employees as things age. Servers become
+increasingly hacked together and time and time again the operations teams have
+to deal with the aftermath.
+
+Machines fail. Your customers won't care why it failed, but only that it is down
+and making their experience poor. There should be no difference to an end user
+if you have 1 server fall down or 50 servers falling down.
+
+As a solution to this, I propose that the basic components of a cluster be
+broken down and separated into small, discrete parts that work together, all
+backed by a central message queue. Everything will be split up into small parts
+that can be virally replicated across servers, which combined with the central
+message queue will emulate a sort of a hivemind.
+
+The components of this can then be written in any language, allowing you to
+easily mock out services and test changes in isolation.
+
+Object storage will let you save your large files in a reliable way or power
+your CDN in a way that will never, ever go down.
+
+When a machine goes down, it will be forcibly rejected from the cluster until a
+human goes in and re-adds it. This will help prevent desyncs of state from the
+other machines in the cluster.
+
+This is Flitter 2.0. This is Hive.
+
+* Components
+** [X] Spine
+The message queue that makes up the spine of the cluster. This is going to be
+NATS, RabbitMQ, etc. But initial implementation will use NATS.
+
+** Workers
+Workers will act on or produce messages in the queue to fulfill actions for
+user requests. There will be a few strains of workers:
+
+*** [X] HTTP
+HTTP workers will fufill HTTP requests by listening on a queue named after
+the HTTP verb, host header and route. All other information about the request
+will be recieved in a JSON object.
+
+*** Slow-Task
+A slow-task worker will recieve a work item and then do it without confirming
+when it is done to its sender. This can be something like image thumbnailing or
+backup collection.
+
+*** Engram
+Engram workers will deal with persistent data storage. It may depend on its own
+caching layer which can just be a few more workers spread around the hive.
+
+*** [X] Ingress
+Ingress workers will take requests from the outside world and convert them
+between traffic the user can understand and the intermediate representation
+used for routing through the spine.
+
+In practice, this will be a HTTP server that will have each connection block on
+the backend having some process fulfill that request. A timeout will trigger a
+generic 500 page.
+
+*** Heartbeat
+Heartbeat workers will run on every machine in the cluster. Every so often they
+will send a heartbeat message to another machine's heartbeat worker. If they
+don't reply 5 times, it will have its network port turned off and automatically
+will be removed from the active rotation. Services that were running on that
+machine will be scattered whereever else there is room for them.
+
+** Adjunct
+An adjunct will run on every node in the cluster. It will manage container
+creation based on either policies set by the administrator or as requests come
+in. This may also be used for metrics and uptime monitoring.
+
+If an adjunct detects that it's been disconnected from the hive, it will
+immediately kill off all of its started jobs and cowardly wait for instructions
+on how to act further.
+
+* Crazy Ideas
+** Enforce documentation to be present to start a service
+Obviously this would only be in place for a production cluster, but it would
+require that the people that are stuck with the pager can immediately diagnose
+and start repairing that specific service causing issues. Its dependencies would
+be cleanly spelled out as well as what specific API calls it makes elsewhere,
+making a contract.
+
+If you are going this far, you might as well also make some layer between the
+caller and the eventual service that enforces this contract, making calls fail
+if a requested thing is outside its contract.

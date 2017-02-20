@@ -1,0 +1,80 @@
+* Mast
+
+Any ship needs a good mast to hold it up. The mast in Hive deals with dynamic
+spawning and killing off of services. The flow looks like this:
+
+1. a worker wants to request work from another service.
+2. the worker sends a "is there one alive" request to mast via the queue.
+3. mast checks to see if a worker at the ping-channel for a given listener
+   replies back.
+4. if there is not one, it sends a request to the scheduler to spin up a new
+instance and asks it to send a message to a mast-provided channel to confirm
+readiness.
+5. the worker is now allowed to resume
+6. if a worker has not processed any events in some user controlled interval
+of time, it will shut itself down, leaving a minimum of one instance of any
+given service across the cluster.
+7. if the number of events requested gets over a given rate, its worker will
+have another instance spun up.
+
+** Service API calls
+*** hive.mast.event.service.spawn
+:input: {service, host, uuid, kind}
+
+This event is raised when a new service is spawned.
+
+*** <hive.mast.event.service.death>
+
+*** <hive.mast.event.service.ping>
+:input: random string
+:output: a Pong reply type as defined below
+:effects: sets the pong timestamp for a given service to the current
+time
+
+This event is raised every so often when a hive mast wants to poll the other
+services to see if they still exist. This will automatically be handled by
+the hive libraries.
+
+The input random string goes in the Token field of the below struct.
+
+#+BEGIN_SRC go
+type Pong struct {
+    Token string `json:"token"`
+    Host  string `json:"host"`
+    UUID  string `json:"uuid"`
+    Role  string `json:"service"`
+    Kind  string `json:"kind"`
+}
+#+END_SRC
+
+If a service doesn't reply at least once every 5 minutes, it may be killed by
+the mast.
+
+*** <hive.mast.request.service.request>
+:input: {service, kind}
+:output: boolean
+:effects: returns true if an instance of the service exists, if one does not it
+waits until an instance exists. if instanciation of the service fails, it
+returns false.
+
+*** <hive.mast.request.service.create>
+
+*** <hive.mast.request.service.spawn>
+
+*** <hive.mast.request.service.delete>
+
+*** <hive.mast.request.service.killall>
+
+*** <hive.mast.request.service.update>
+
+** Things that services need to support
+Most of this will be done via the library code.
+
+*** <hive.service-uuid.die>
+If this is tripped, the service will be ordered to kill itself and the host it
+is running on will be ordered to forcibly terminate.
+
+*** <hive.service-uuid.ping>
+See above definition [[hive.mast.event.service.ping]].
+
+*** <hive.service-uuid.stats>

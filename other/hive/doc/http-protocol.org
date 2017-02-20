@@ -1,0 +1,64 @@
+* HTTP Requests via Hive
+
+Hive lets engineers create reliable systems by separating HTTP servers from the
+actual implementation of the routes involved.
+
+The way it does this is by making a few datatypes that mimic the unione of the
+kinds of data that a Request and Response record contain encoded as a JSON
+object distributed by the message queue.
+
+This can and probably should be improved, but it will be good enough for the
+initial release.
+
+** The Request
+
+#+BEGIN_SRC go
+type Request struct {
+        URL        string         `json:"url"`
+        VHost      string         `json:"vhost"`
+        Headers    http.Header    `json:"headers"`
+        Body       string         `json:"body"`
+        Method     string         `json:"method"`
+        Cookies    []*http.Cookie `json:"cookies"`
+        RemoteAddr string         `json:"remoteaddr"`
+        RequestURI string         `json:"requesturi"`
+}
+#+END_SRC
+
+An example Request would look like this on the wire:
+
+#+BEGIN_SRC json
+{
+  "url": "http://greedo.xeserv.us:9090/",
+  "vhost": "greedo.xeserv.us:9090",
+  "headers": nil,
+  "body": "",
+  "method": "GET",
+  "cookies": null,
+  "remoteaddr": "127.0.0.1",
+  "requesturi": "/"
+}
+#+END_SRC
+
+** The Response
+
+#+BEGIN_SRC go
+type Response struct {
+        Body       string      `json:"body"`
+        Headers    http.Header `json:"headers"`
+        StatusCode int         `json:"status"`
+}
+#+END_SRC
+
+An example Response would look like this on the wire:
+
+#+BEGIN_SRC json
+{
+  "body": "Hello world!",
+  "status": 200,
+  "headers": {
+    "Content-Type": ["text/plain"],
+    "Content-Length": 12
+  }
+}
+#+END_SRC
