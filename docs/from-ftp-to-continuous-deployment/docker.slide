@@ -1,0 +1,169 @@
+From FTP to Continuous Deployment
+A Story of Containers in Production
+29 Apr 2015
+Tags: docker, container, cinemaquestria, orchestration
+
+Christine Dodrill
+Site Reliability Engineer
+me@christine.website
+https://github.com/Xe
+@theprincessxena
+
+* The Beginning
+
+* Tech Stack
+
+All flat HTML served by
+
+.image http://skepchick.org/wp-content/uploads/2014/04/godaddy.jpeg
+
+* Tech Stack
+
+- Javascript scraping a google docs spreadsheet to know what stream to embed in a page next to the chat
+- Webchat was an embedded AJAX IRC client (Mibbit, don't use them)
+- Skype for internal communications
+- FTP to upload files
+
+* Contents
+
+- HTML / CSS / JS
+- Image files
+- PDF show notes of the podcast
+
+* Problems
+
+- Only one set of FTP credentials
+- Few people had them
+- No backup
+
+* Containerize All The Things
+
+* Options
+
+1. Heroku
+2. AWS S3
+3. Custom container management (Deis, Flitter, etc)
+4. Dokku
+
+* Heroku
+
+Pros:
+
+- Free tier
+- Multiple contributor access
+- Code can remain private
+
+Cons:
+
+- Scaling is expensive
+- Unintuitive for non-developers
+- Cannot use own hardware
+
+* AWS S3
+
+Pros:
+
+- Very cheap
+  "Can be hosted for about 0 dollars per month"
+- Individual user access controls are very comprehensive
+- Plethora of clients available for it
+
+Cons:
+
+- Could not get it set up and working
+- User access was far too complicated for our needs
+- Nontrivial for newbies to upload a publicly visible file
+
+* Custom container management
+
+Deis:
+
+- Took too much hardware
+- Amazingly unstable
+- Hard to debug
+
+Flitter:
+
+- Was still on the drawing board
+
+* Dokku
+
+- git push deployment
+- Ran on own hardware
+- Dockerfile building
+- Basically a frontend to nginx
+
+* Switching to Git
+
+* Switching to Git
+
+Surprisingly an easy thing to do. Set up my own instance of [[http://gogs.io][Gogs]] and set up an [[https://git.xeserv.us/org/CinemaQuestria][organization]].
+
+People figured out how to make changes to things very quickly and then were able to push it to the server instantly. Zero downtime redeploys.
+
+* Advantages of Git
+
+- Accountability for who made what change
+- The ability to rollback changes if need be
+- Everyone being able to have an entire copy of the site and its revision history
+
+To this date we have never needed to capitalize on any of these points, but they are strong selling points in case of the Bus Factor.
+
+Mind you these are not all super-technically gifted people, but the command line git client was good enough that not only were they able to commit and make changes to the site, but they also took initiative and corrected things they messed up and made sure things were consistent and correct.
+
+* The Docker Builder
+
+1. git push dokku master
+2. Container is built
+3. New container is spawned
+4. Old container is killed
+
+* CinemaQuestria's Dockerfile
+
+  FROM nginx
+  
+  COPY . /usr/share/nginx/html
+
+* Further Automation
+
+I wrote a very simple thing called [[https://github.com/Xe/gokku][Gokku]] that would automatically build containers and report to the "admin chat" on PonyChat.
+
+.image https://i.imgur.com/MLAaD9Z.png _ 975
+
+	bot.Privmsgf(
+		"#"+os.Getenv("BOT_CHANNEL"),
+		"\x036,8%s made %d commits to %s of the site, deploying...",
+		hook.Pusher.Username,
+		len(hook.Commits),
+		hook.Ref,
+	)
+
+	cmd := exec.Command("git", "pull")
+	cmd.Dir = *dir
+	cmd.Run()
+
+	pushcmd := exec.Command("git", "push", dokkuremote, "master")
+	pushcmd.Dir = *dir
+	pushcmd.Run()
+
+* Load
+
+  | Season | Epsiode | Chat Members | Stream Views |
+  |:------ |:------- |:------------ |:------------ |
+  | 5      | 1 + 2   | ~5680        | ~50,000      |
+  | 5      | 3       | ~1000        | ~5,000       |
+  | 5      | 4       | ~1300        | ~5,500       |
+  | 5      | 5       | ~1500        | ~6,800       |
+
+We consider this pretty good for our first year of people knowing we exist.
+
+* The Future
+
+- Server side code cannot win against static HTML
+- HTML is (relatively) easy to change
+- Locally immutable copies of the site means it can all be in memory
+- More saturday riffs of bad movies
+- Weekly TF2 instagib
+- Stressing PonyChat servers with Websockets instead of flash
+
+* Questions
