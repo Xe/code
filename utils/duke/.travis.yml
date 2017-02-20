@@ -1,0 +1,12 @@
+language: go
+
+go:
+  - 1.5.1
+
+install:
+  - true
+
+script:
+  - go get rsc.io/gt
+  - ./test.sh
+  - ./build.sh
