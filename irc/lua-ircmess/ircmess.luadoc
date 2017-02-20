@@ -1,0 +1,8 @@
+--- Process IRC lines quickly and sanely. ircmess is a simple library in C to make IRC line parsing easier.
+module "ircmess"
+
+--- Parse IRC line into a table
+-- Transforms a string IRC line into a table
+-- @param line Line to parse
+-- @return an IRCLine table
+function parse(line) end
