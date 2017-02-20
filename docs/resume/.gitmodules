@@ -1,0 +1,3 @@
+[submodule "ubuntu-font"]
+	path = ubuntu-font
+	url = git://github.com/tzwenn/ubuntu-latex-fonts.git
