@@ -1,0 +1,12 @@
+= doctype html
+html lang=en
+  head
+    meta charset=utf-8
+    title
+      = yield title
+        | Lazengann
+  body
+    h1 This is a base template
+    = yield main
+    = yield footer
+      | Copyright 2015 by awesome people.
