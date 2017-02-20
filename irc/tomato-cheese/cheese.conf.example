@@ -1,0 +1,30 @@
+; vim: ft=ini
+
+; the upstream irc daemon
+[upstream]
+; IRC daemon to connect to
+host = 127.0.0.1:6667
+; connect to ircd over ssl?
+usessl = off
+
+; WEBIRC integration
+[webirc]
+; use WEBIRC?
+enabled = on
+; WEBIRC password
+password = fish
+; WEBIRC ident
+ident = viper
+
+; server information
+[server]
+; port number to bind on
+bind = :6969
+; bind on SSL?
+usessl = false
+; SSL information
+sslcert = ./ssl.cert
+sslkey = ./ssl.key
+
+; A list of the allowed Origin: Headers to read from
+allowedorigin = "http://127.0.0.1:6969"

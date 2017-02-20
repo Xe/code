@@ -1,0 +1,19 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/shizeeg/gcfg",
+			"repository": "https://github.com/shizeeg/gcfg",
+			"revision": "98bf957df9fe33e9ab41a743f7b54be4ede0a41d",
+			"branch": "master",
+			"path": ""
+		},
+		{
+			"importpath": "golang.org/x/net/websocket",
+			"repository": "https://go.googlesource.com/net",
+			"revision": "84afb0af0050ae286aa9ced0c29383c2a866a925",
+			"branch": "master",
+			"path": "/websocket"
+		}
+	]
+}

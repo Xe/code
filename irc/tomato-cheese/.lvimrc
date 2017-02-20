@@ -1,0 +1,1 @@
+let $GOPATH = getcwd() . ":" . getcwd() . "/vendor"
