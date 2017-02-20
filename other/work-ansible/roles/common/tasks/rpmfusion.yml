@@ -1,0 +1,4 @@
+- name: install RPMFusion
+  dnf:
+    name: http://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-23.noarch.rpm
+    state: present

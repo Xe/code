@@ -1,0 +1,17 @@
+- name: common files
+  hosts: all
+  remote_user: root
+  roles:
+    - common
+
+- name: smartcard support
+  hosts: smartcard
+  remote_user: root
+  roles:
+    - smartcard
+
+- name: dotfiles
+  hosts: all
+  remote_user: cdodrill
+  roles:
+    - dotfiles

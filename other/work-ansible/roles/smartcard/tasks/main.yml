@@ -1,0 +1,57 @@
+- name: install python-dnf (needed for ansible)
+  shell: dnf -y install python-dnf
+
+- name: install packages that are needed
+  dnf:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - ykpers-devel
+    - libyubikey-devel
+    - libusb-devel
+    - autoconf
+    - gnupg
+    - gnupg2-smime
+    - pcsc-lite
+    - pcsc-lite-ccid
+    - libselinux-python
+    - dnf-plugins-extras-versionlock
+
+- name: install an older version of gnupg
+  script: ./static/smartcard/install_old_gpg.sh creates=/var/local/gpg-is-installed-do-not-fear
+
+- name: remove old configuration (1/2)
+  shell: mv /etc/xdg/autostart/gnome-keyring-gpg.desktop /etc/xdg/autostart/gnome-keyring-gpg.desktop.inactive
+  ignore_errors: yes
+
+- name: remove old configuration (2/2)
+  shell: mv /etc/xdg/autostart/gnome-keyring-ssh.desktop /etc/xdg/autostart/gnome-keyring-ssh.desktop.inactive
+  ignore_errors: yes
+
+- name: add gpg agent wrapper from local storage
+  become: yes
+  become_user: cdodrill
+  copy:
+    src: ./static/smartcard/gpg-agent-wrapper
+    dest: ~/.gnupg/gpg-agent-wrapper
+  notify:
+    - chmod gpg-agent-wrapper
+
+- name: add gpg agent wrapper to global bash config
+  lineinfile:
+    dest: /etc/bashrc
+    line: "[ -f ${HOME}/.gnupg/gpg-agent-wrapper ] && source ${HOME}/.gnupg/gpg-agent-wrapper"
+
+- name: configure gpg-agent
+  become: yes
+  become_user: cdodrill
+  copy:
+    src: ./static/smartcard/gpg-agent.conf
+    dest: ~/.gnupg/gpg-agent.conf
+
+- name: add yubikey udev rules
+  copy:
+    src: ./static/smartcard/70-u2f.rules
+    dest: /etc/udev/rules.d/70-u2f.rules
+  notify:
+    - reload udev rules

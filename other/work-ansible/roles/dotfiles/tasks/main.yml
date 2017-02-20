@@ -1,0 +1,3 @@
+- include: dotfiles.yml
+- include: emacs.yml
+- include: awesome.yml

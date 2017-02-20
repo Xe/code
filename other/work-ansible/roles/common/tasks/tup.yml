@@ -1,0 +1,2 @@
+- name: install tup
+  script: ./scripts/common/install_tup.sh creates=/usr/local/bin/tup

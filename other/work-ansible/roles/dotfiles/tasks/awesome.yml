@@ -1,0 +1,2 @@
+- name: install awesome
+  shell: ln -s /home/xena/code/dotfiles/awesome /home/xena/.config/awesome creates=/home/xena/.config/awesome

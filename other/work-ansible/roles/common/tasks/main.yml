@@ -1,0 +1,5 @@
+- include: rpmfusion.yml
+- include: packages.yml
+- include: golang.yml
+- include: tup.yml
+- include: spotify.yml

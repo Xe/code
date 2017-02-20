@@ -1,0 +1,7 @@
+- name: chmod gpg-agent-wrapper
+  become: yes
+  become_user: cdodrill
+  shell: chmod +x ~/.gnupg/gpg-agent-wrapper
+
+- name: reload udev rules
+  shell: udevadm control --reload-rules
