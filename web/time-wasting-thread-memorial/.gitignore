@@ -1,0 +1,6 @@
+*.db
+*.db-journal
+*.a
+*.o
+*.so
+*.hi
