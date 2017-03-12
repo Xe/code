@@ -1,0 +1,43 @@
+version: "2"
+
+services:
+  redis:
+    image: "redis:3.2"
+    restart: always
+
+  nats:
+    image: "nats:0.8.1"
+    restart: always
+
+  postgres:
+    image: postgres:9.5
+    environment:
+      POSTGRES_PASSWORD: hunter2
+    restart: always
+    volumes:
+     - psql-data:/var/lib/postgres/data
+
+  router:
+    build: router
+    environment:
+      NATS_URL: nats://nats:4222
+      REDIS: redis:6379
+    restart: always
+    depends_on:
+      - nats
+      - redis
+
+  ircd:
+    image: "xena/elemental-ircd:latest"
+
+  irc-relay:
+    build: adaptors/irc
+    environment:
+      NATS_URL: nats://nats:4222
+    depends_on:
+      - nats
+      - router
+
+volumes:
+  psql-data:
+    driver: local
