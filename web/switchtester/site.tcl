@@ -48,7 +48,7 @@ proc wapp-page-results {} {
         <p>Results are hidden until the next calendar julian day UTC. It is currently the julian date
     }
 
-    db eval {SELECT juliandate('now') AS date} val {
+    db eval {SELECT julianday('now') AS date} val {
         set date $val(date)
         wapp-trim {
             <pre>%html($date)</pre>.</p>
