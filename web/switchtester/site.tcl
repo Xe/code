@@ -44,6 +44,18 @@ proc wapp-page-results {} {
     wingcss
     wapp-trim {
         <section class="container">
+        <h1>Results</h1>
+        <p>Results are hidden until the next calendar julian day UTC. It is currently the julian date
+    }
+
+    db eval {SELECT juliandate('now') AS date} val {
+        set date $val(date)
+        wapp-trim {
+            <pre>%html($date)</pre>.</p>
+        }
+    }
+
+    wapp-trim {
         <table>
         <tr>
         <td>ID</td>
@@ -64,6 +76,8 @@ proc wapp-page-results {} {
              INNER JOIN systemmates AS guess ON guess.rowid=mea.systemmate_id
              INNER JOIN systemmates AS actual ON actual.rowid=mea.actual_systemmate_id
              INNER JOIN observers AS observer ON observer.rowid=mea.observer_id
+             WHERE
+               julianday(mea.ts, 'unixepoch') < round(julianday('now'))
     } values {
         set rid $values(id)
         set ts $values(ts)
